@@ -38,6 +38,7 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
     constructor(private readonly context: vscode.ExtensionContext) {}
 
     private content = '';
+    private clientLock = false;
 
     public async resolveCustomTextEditor(
         document: vscode.TextDocument,
@@ -49,6 +50,7 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
 
         const updateWebview = () => {
             const text = document.getText();
+            console.log(text);
             if (text === this.content) return;
             webviewPanel.webview.postMessage({
                 type: 'update',
@@ -57,6 +59,10 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
         };
 
         const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument((e) => {
+            if (this.clientLock) {
+                this.clientLock = false;
+                return;
+            }
             if (e.document.uri.toString() === document.uri.toString()) {
                 updateWebview();
             }
@@ -69,7 +75,7 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
         webviewPanel.webview.onDidReceiveMessage((e) => {
             switch (e.type) {
                 case 'update':
-                    this.content = e.content;
+                    this.clientLock = true;
                     this.updateDocument(document, e.content);
                     return;
             }
@@ -108,6 +114,7 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
     private updateDocument(document: vscode.TextDocument, content: string) {
         const text = document.getText();
         if (text === content) return;
+        this.content = content;
         const edit = new vscode.WorkspaceEdit();
         edit.replace(document.uri, new vscode.Range(0, 0, document.lineCount, 0), content);
         vscode.workspace.applyEdit(edit);

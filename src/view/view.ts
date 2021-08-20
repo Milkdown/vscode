@@ -6,6 +6,8 @@ import { tooltip } from '@milkdown/plugin-tooltip';
 import { slash } from '@milkdown/plugin-slash';
 import { history } from '@milkdown/plugin-history';
 import { listener, listenerCtx } from '@milkdown/plugin-listener';
+import { clipboard } from '@milkdown/plugin-clipboard';
+import { emoji } from '@milkdown/plugin-emoji';
 
 const debounce = <T extends unknown[]>(func: (...args: T) => void, delay: number) => {
     let timer: number;
@@ -18,6 +20,7 @@ const debounce = <T extends unknown[]>(func: (...args: T) => void, delay: number
 };
 
 let contentCache = '';
+let serverLock = false;
 
 // @ts-ignore
 const vscode = acquireVsCodeApi();
@@ -33,13 +36,17 @@ const createEditor = () =>
             ctx.set(listenerCtx, {
                 markdown: [
                     debounce((getDoc: () => string) => {
-                        const content = getDoc();
-                        if (contentCache === content) return;
-                        contentCache = content;
-                        vscode.setState({ text: content });
+                        if (serverLock) {
+                            serverLock = false;
+                            return;
+                        }
+                        const text = getDoc();
+                        if (contentCache === text) return;
+                        contentCache = text;
+                        vscode.setState({ text });
                         vscode.postMessage({
                             type: 'update',
-                            content,
+                            content: text,
                         });
                     }, 200),
                 ],
@@ -51,6 +58,8 @@ const createEditor = () =>
         .use(tooltip)
         .use(history)
         .use(listener)
+        .use(emoji)
+        .use(clipboard)
         .create();
 
 const changeTheme = (target: Node) => {
@@ -93,6 +102,11 @@ async function main() {
         switch (message.type) {
             case 'update': {
                 const text = message.text;
+                if (text === contentCache) return;
+                serverLock = true;
+                console.log('-------update-------');
+                console.log(text);
+                console.log(contentCache);
 
                 updateEditor(text);
                 vscode.setState({ text });
