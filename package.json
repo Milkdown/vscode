@@ -20,7 +20,7 @@
         "onCommand:milkdown.open"
     ],
     "main": "./dist/extension.js",
-    "publisher": "Saul-Mirone",
+    "publisher": "mirone",
     "contributes": {
         "customEditors": [
             {
