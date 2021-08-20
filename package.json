@@ -12,7 +12,8 @@
     ],
     "activationEvents": [
         "onCustomEditor:milkdown.editor",
-        "onCommand:milkdown.hello"
+        "onLanguage:markdown",
+        "onCommand:milkdown.open"
     ],
     "main": "./dist/extension.js",
     "contributes": {
@@ -25,14 +26,30 @@
                         "filenamePattern": "*.md"
                     }
                 ],
-                "priority": "default"
+                "priority": "option"
             }
         ],
+        "menus": {
+            "explorer/context": [
+                {
+                    "when": "resourceLangId == markdown",
+                    "command": "milkdown.open",
+                    "group": "navigation"
+                }
+            ],
+            "editor/context": [
+                {
+                    "when": "resourceLangId == markdown",
+                    "command": "milkdown.open",
+                    "group": "navigation"
+                }
+            ]
+        },
         "commands": [
             {
-                "command": "milkdown.hello",
-                "title": "milkdown hello",
-                "category": "milkdown"
+                "command": "milkdown.open",
+                "title": "Open with Milkdown",
+                "category": "Milkdown"
             }
         ]
     },

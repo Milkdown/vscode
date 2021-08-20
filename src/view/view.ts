@@ -1,13 +1,11 @@
 import { Slice } from 'prosemirror-model';
 import { nord } from '@milkdown/theme-nord';
-import { Editor, rootCtx, editorViewCtx, parserCtx } from '@milkdown/core';
+import { Editor, rootCtx, editorViewCtx, parserCtx, defaultValueCtx } from '@milkdown/core';
 import { gfm } from '@milkdown/preset-gfm';
 import { tooltip } from '@milkdown/plugin-tooltip';
 import { slash } from '@milkdown/plugin-slash';
 import { history } from '@milkdown/plugin-history';
 import { listener, listenerCtx } from '@milkdown/plugin-listener';
-
-console.log('----loading milkdown----');
 
 const debounce = <T extends unknown[]>(func: (...args: T) => void, delay: number) => {
     let timer: number;
@@ -28,12 +26,17 @@ const createEditor = () =>
     Editor.make()
         .config((ctx) => {
             ctx.set(rootCtx, document.getElementById('app'));
+            const state = vscode.getState();
+            if (state?.text) {
+                ctx.set(defaultValueCtx, state.text);
+            }
             ctx.set(listenerCtx, {
                 markdown: [
                     debounce((getDoc: () => string) => {
                         const content = getDoc();
                         if (contentCache === content) return;
                         contentCache = content;
+                        vscode.setState({ text: content });
                         vscode.postMessage({
                             type: 'update',
                             content,
@@ -50,13 +53,25 @@ const createEditor = () =>
         .use(listener)
         .create();
 
+const changeTheme = (target: Node) => {
+    if (target instanceof HTMLElement) {
+        const isDark = target.classList.contains('vscode-dark');
+        document.body.dataset.theme = isDark ? 'dark' : 'light';
+    }
+};
+
 async function main() {
     const editor = await createEditor();
 
-    //TODO: set by theme
-    document.body.dataset.theme = 'dark';
+    changeTheme(document.body);
 
-    console.log('---create editor success---');
+    const observer = new MutationObserver(function (mutations) {
+        mutations.forEach((mutationRecord) => {
+            changeTheme(mutationRecord.target);
+        });
+    });
+
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
     const updateEditor = (markdown: string) => {
         if (typeof markdown !== 'string') return;
@@ -67,8 +82,6 @@ async function main() {
             if (!doc) {
                 return;
             }
-            console.log('---update editor---');
-            console.log('--content--', markdown);
             contentCache = markdown;
             const state = view.state;
             view.dispatch(state.tr.replace(0, state.doc.content.size, new Slice(doc.content, 0, 0)));
@@ -76,27 +89,18 @@ async function main() {
     };
 
     window.addEventListener('message', (event) => {
-        const message = event.data; // The json data that the extension sent
+        const message = event.data;
         switch (message.type) {
             case 'update': {
                 const text = message.text;
 
-                // Update our webview's content
                 updateEditor(text);
-
-                // Then persist state information.
-                // This state is returned in the call to `vscode.getState` below when a webview is reloaded.
                 vscode.setState({ text });
 
                 return;
             }
         }
     });
-
-    const state = vscode.getState();
-    if (state) {
-        updateEditor(state);
-    }
 }
 
 main();

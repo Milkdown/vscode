@@ -11,6 +11,20 @@ function getNonce() {
 
 export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
     public static register(context: vscode.ExtensionContext): vscode.Disposable {
+        vscode.commands.registerCommand('milkdown.open', (uri?: vscode.Uri) => {
+            let url = uri;
+            if (!url) {
+                url = vscode.window.activeTextEditor?.document.uri;
+            }
+            console.log(url);
+            if (!url) {
+                console.error('Cannot get url');
+                return;
+            }
+
+            vscode.commands.executeCommand('vscode.openWith', url, MilkdownEditorProvider.viewType);
+        });
+
         const provider = new MilkdownEditorProvider(context);
         const providerRegistration = vscode.window.registerCustomEditorProvider(
             MilkdownEditorProvider.viewType,
@@ -19,7 +33,7 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
         return providerRegistration;
     }
 
-    private static readonly viewType = 'milkdown.editor';
+    public static readonly viewType = 'milkdown.editor';
 
     constructor(private readonly context: vscode.ExtensionContext) {}
 
