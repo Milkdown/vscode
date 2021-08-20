@@ -23,22 +23,24 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
 
     constructor(private readonly context: vscode.ExtensionContext) {}
 
+    private content = '';
+
     public async resolveCustomTextEditor(
         document: vscode.TextDocument,
         webviewPanel: vscode.WebviewPanel,
         _token: vscode.CancellationToken,
     ): Promise<void> {
         webviewPanel.webview.options = { enableScripts: true };
-        const html = this.getHtmlForWebview(webviewPanel.webview);
         webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
-        console.log(html);
 
-        function updateWebview() {
+        const updateWebview = () => {
+            const text = document.getText();
+            if (text === this.content) return;
             webviewPanel.webview.postMessage({
                 type: 'update',
-                text: document.getText(),
+                text,
             });
-        }
+        };
 
         const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument((e) => {
             if (e.document.uri.toString() === document.uri.toString()) {
@@ -48,6 +50,15 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
 
         webviewPanel.onDidDispose(() => {
             changeDocumentSubscription.dispose();
+        });
+
+        webviewPanel.webview.onDidReceiveMessage((e) => {
+            switch (e.type) {
+                case 'update':
+                    this.content = e.content;
+                    this.updateDocument(document, e.content);
+                    return;
+            }
         });
 
         updateWebview();
@@ -78,5 +89,12 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
                 <script nonce="${nonce}" src="${scriptUri}"></script>
 			</body>
 			</html>`;
+    }
+
+    private updateDocument(document: vscode.TextDocument, content: string) {
+        // const text = document.getText();
+        const edit = new vscode.WorkspaceEdit();
+        edit.replace(document.uri, new vscode.Range(0, 0, document.lineCount, 0), content);
+        vscode.workspace.applyEdit(edit);
     }
 }

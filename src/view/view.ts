@@ -4,24 +4,53 @@ import { Editor, rootCtx, editorViewCtx, parserCtx } from '@milkdown/core';
 import { gfm } from '@milkdown/preset-gfm';
 import { tooltip } from '@milkdown/plugin-tooltip';
 import { slash } from '@milkdown/plugin-slash';
+import { history } from '@milkdown/plugin-history';
+import { listener, listenerCtx } from '@milkdown/plugin-listener';
 
 console.log('----loading milkdown----');
+
+const debounce = <T extends unknown[]>(func: (...args: T) => void, delay: number) => {
+    let timer: number;
+    return (...args: T) => {
+        clearTimeout(timer);
+        timer = window.setTimeout(() => {
+            func.apply(undefined, args);
+        }, delay);
+    };
+};
+
+let contentCache = '';
+
+// @ts-ignore
+const vscode = acquireVsCodeApi();
 
 const createEditor = () =>
     Editor.make()
         .config((ctx) => {
             ctx.set(rootCtx, document.getElementById('app'));
+            ctx.set(listenerCtx, {
+                markdown: [
+                    debounce((getDoc: () => string) => {
+                        const content = getDoc();
+                        if (contentCache === content) return;
+                        contentCache = content;
+                        vscode.postMessage({
+                            type: 'update',
+                            content,
+                        });
+                    }, 200),
+                ],
+            });
         })
         .use(nord)
         .use(gfm)
         .use(slash)
         .use(tooltip)
+        .use(history)
+        .use(listener)
         .create();
 
 async function main() {
-    // @ts-ignore
-    const vscode = acquireVsCodeApi();
-
     const editor = await createEditor();
 
     //TODO: set by theme
@@ -30,14 +59,17 @@ async function main() {
     console.log('---create editor success---');
 
     const updateEditor = (markdown: string) => {
+        if (typeof markdown !== 'string') return;
         editor.action((ctx) => {
-            console.log('---update editor---');
             const view = ctx.get(editorViewCtx);
             const parser = ctx.get(parserCtx);
             const doc = parser(markdown);
             if (!doc) {
                 return;
             }
+            console.log('---update editor---');
+            console.log('--content--', markdown);
+            contentCache = markdown;
             const state = view.state;
             view.dispatch(state.tr.replace(0, state.doc.content.size, new Slice(doc.content, 0, 0)));
         });
@@ -60,6 +92,11 @@ async function main() {
             }
         }
     });
+
+    const state = vscode.getState();
+    if (state) {
+        updateEditor(state);
+    }
 }
 
 main();
