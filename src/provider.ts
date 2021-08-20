@@ -78,10 +78,11 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
                     this.clientLock = true;
                     this.updateDocument(document, e.content);
                     return;
+                case 'ready':
+                    updateWebview();
+                    return;
             }
         });
-
-        updateWebview();
     }
 
     private getHtmlForWebview(webview: vscode.Webview): string {

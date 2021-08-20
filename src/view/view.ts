@@ -74,6 +74,10 @@ const changeTheme = (target: Node) => {
 async function main() {
     const editor = await createEditor();
 
+    vscode.postMessage({
+        type: 'ready',
+    });
+
     changeTheme(document.body);
 
     const observer = new MutationObserver(function (mutations) {
