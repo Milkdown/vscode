@@ -8,6 +8,7 @@ import { history } from '@milkdown/plugin-history';
 import { listener, listenerCtx } from '@milkdown/plugin-listener';
 import { clipboard } from '@milkdown/plugin-clipboard';
 import { emoji } from '@milkdown/plugin-emoji';
+import { prism } from '@milkdown/plugin-prism';
 
 const debounce = <T extends unknown[]>(func: (...args: T) => void, delay: number) => {
     let timer: number;
@@ -60,6 +61,7 @@ const createEditor = () =>
         .use(listener)
         .use(emoji)
         .use(clipboard)
+        .use(prism)
         .create();
 
 const changeTheme = (target: Node) => {
