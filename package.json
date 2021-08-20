@@ -1,14 +1,14 @@
 {
     "name": "milkdown",
     "private": true,
-    "displayName": "milkdown",
+    "displayName": "Milkdown",
     "description": "Use milkdown in your favorite editor.",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.59.0"
     },
     "categories": [
-        "Other"
+        "Programming Languages"
     ],
     "activationEvents": [
         "onCustomEditor:milkdown.editor",
@@ -16,6 +16,7 @@
         "onCommand:milkdown.open"
     ],
     "main": "./dist/extension.js",
+    "publisher": "mirone",
     "contributes": {
         "customEditors": [
             {

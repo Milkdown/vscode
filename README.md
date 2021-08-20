@@ -10,7 +10,7 @@ Describe specific features of your extension including screenshots of your exten
 
 For example if there is an image subfolder under your extension project workspace:
 
-![Show](/milkdown-vscode.gif)
+![Show](https://github.com/Saul-Mirone/milkdown-vscode/blob/main/milkdown-vscode.gif)
 
 ### Usage:
 
@@ -24,6 +24,8 @@ For example if there is an image subfolder under your extension project workspac
 -   Full GFM syntax support
 -   Emoji picker and filter
 -   Copy and paste with markdown
+-   Slash commands
+-   Tooltip bar
 
 ## License
 
