@@ -7,6 +7,10 @@
     "engines": {
         "vscode": "^1.59.0"
     },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Saul-Mirone/milkdown-vscode.git"
+    },
     "categories": [
         "Programming Languages"
     ],
@@ -16,7 +20,7 @@
         "onCommand:milkdown.open"
     ],
     "main": "./dist/extension.js",
-    "publisher": "mirone",
+    "publisher": "Saul-Mirone",
     "contributes": {
         "customEditors": [
             {
@@ -65,7 +69,7 @@
         "watch:view": "esbuild src/view/milkdown.ts --watch --bundle --sourcemap --outfile=\"media/milkdown.js\"",
         "watch:main": "webpack --watch",
         "watch": "concurrently -n view,main,style \"esbuild src/view/view.ts --watch --bundle --sourcemap --outfile=media/view.js\" \"webpack --watch\" \"postcss src/view/style.css --watch --verbose -o media/style.css\"",
-        "package": "webpack --mode production --devtool hidden-source-map",
+        "package": "rimraf dist && rimraf media && esbuild src/view/milkdown.ts --bundle --minify --outfile=media/milkdown.js && webpack --mode production --devtool hidden-source-map",
         "test-compile": "tsc -p ./",
         "test-watch": "tsc -watch -p ./",
         "pretest": "npm run test-compile && npm run lint",

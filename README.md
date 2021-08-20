@@ -29,4 +29,4 @@ For example if there is an image subfolder under your extension project workspac
 
 ## License
 
-[MIT](/LICENSE)
+[MIT](https://github.com/Saul-Mirone/milkdown-vscode/blob/main/LICENSE)
