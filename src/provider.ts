@@ -92,7 +92,8 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
     }
 
     private updateDocument(document: vscode.TextDocument, content: string) {
-        // const text = document.getText();
+        const text = document.getText();
+        if (text === content) return;
         const edit = new vscode.WorkspaceEdit();
         edit.replace(document.uri, new vscode.Range(0, 0, document.lineCount, 0), content);
         vscode.workspace.applyEdit(edit);
