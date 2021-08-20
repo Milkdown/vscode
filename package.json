@@ -1,6 +1,7 @@
 {
     "name": "milkdown",
     "private": true,
+    "icon": "logo.png",
     "displayName": "Milkdown",
     "description": "Use milkdown in your favorite editor.",
     "version": "0.0.1",

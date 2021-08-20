@@ -2,6 +2,10 @@
 
 Use [Milkdown](https://saul-mirone.github.io/milkdown/#/) in your favorite editor to edit markdown.
 
+## Install
+
+[VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=mirone.milkdown)
+
 ## Features
 
 > Plugin is still in dev progress, this is an early access version.
@@ -10,7 +14,7 @@ Describe specific features of your extension including screenshots of your exten
 
 For example if there is an image subfolder under your extension project workspace:
 
-![Show](https://github.com/Saul-Mirone/milkdown-vscode/blob/main/milkdown-vscode.gif)
+![Show](https://raw.githubusercontent.com/Saul-Mirone/milkdown-vscode/main/milkdown-vscode.gif)
 
 ### Usage:
 
