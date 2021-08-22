@@ -50,7 +50,6 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
 
         const updateWebview = () => {
             const text = document.getText();
-            console.log(text);
             if (text === this.content) return;
             webviewPanel.webview.postMessage({
                 type: 'update',
@@ -73,7 +72,6 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
         });
 
         vscode.window.onDidChangeActiveColorTheme(() => {
-            console.log('---change color scheme---');
             webviewPanel.webview.postMessage({
                 type: 'restart',
             });
@@ -86,6 +84,9 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
                     this.updateDocument(document, e.content);
                     return;
                 case 'ready':
+                    console.log('---editor is ready---');
+                    this.clientLock = false;
+                    this.content = '';
                     updateWebview();
                     return;
             }

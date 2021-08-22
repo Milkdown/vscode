@@ -1,6 +1,6 @@
 # Milkdown 💖 VSCode
 
-Use [Milkdown](https://saul-mirone.github.io/milkdown/#/) in your favorite editor to edit markdown.
+Edit markdown in a WYSIWYG way, powered by [milkdown](https://saul-mirone.github.io/milkdown/#/).
 
 ## Install
 

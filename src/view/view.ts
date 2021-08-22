@@ -64,29 +64,12 @@ const createEditor = () =>
         .use(prism)
         .create();
 
-const changeTheme = (target: Node) => {
-    if (target instanceof HTMLElement) {
-        const isDark = target.classList.contains('vscode-dark');
-        document.body.dataset.theme = isDark ? 'dark' : 'light';
-    }
-};
-
 async function main() {
     let editor = await createEditor();
 
     vscode.postMessage({
         type: 'ready',
     });
-
-    changeTheme(document.body);
-
-    const observer = new MutationObserver(function (mutations) {
-        mutations.forEach((mutationRecord) => {
-            changeTheme(mutationRecord.target);
-        });
-    });
-
-    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
     const updateEditor = (markdown: string) => {
         if (typeof markdown !== 'string') return;
@@ -108,6 +91,9 @@ async function main() {
             const view = ctx.get(editorViewCtx);
             view.dom.parentElement?.remove();
             editor = await createEditor();
+            vscode.postMessage({
+                type: 'ready',
+            });
         });
     };
 
@@ -115,6 +101,7 @@ async function main() {
         const message = event.data;
         switch (message.type) {
             case 'update': {
+                console.log('---wtf---');
                 const text = message.text;
                 if (text === contentCache) return;
                 serverLock = true;

@@ -36,6 +36,11 @@ export const vscode = () =>
                     padding: 1.25rem;
                     box-sizing: border-box;
 
+                    .code-fence {
+                        background: unset;
+                        ${widget.border?.()}
+                    }
+
                     .editor {
                         outline: none;
                         height: 100%;
@@ -88,11 +93,6 @@ export const vscode = () =>
 
                     li.ProseMirror-selectednode::after {
                         ${(_b = widget.border) === null || _b === void 0 ? void 0 : _b.call(widget)}
-                    }
-
-                    @media only screen and (min-width: 72rem) {
-                        max-width: 57.375rem;
-                        padding: 3.125rem 7.25rem;
                     }
 
                     & ::selection {
