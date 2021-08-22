@@ -3,7 +3,7 @@
     "private": true,
     "icon": "logo.png",
     "displayName": "Milkdown",
-    "description": "Use milkdown in your favorite editor.",
+    "description": "Edit markdown in a WYSIWYG way, powered by milkdown.",
     "version": "0.0.6",
     "engines": {
         "vscode": "^1.59.0"
