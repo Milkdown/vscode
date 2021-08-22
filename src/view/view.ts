@@ -53,7 +53,7 @@ const createEditor = () =>
                 ],
             });
         })
-        .use(vscodeTheme)
+        .use(vscodeTheme())
         .use(gfm)
         .use(slash)
         .use(tooltip)
@@ -72,7 +72,7 @@ const changeTheme = (target: Node) => {
 };
 
 async function main() {
-    const editor = await createEditor();
+    let editor = await createEditor();
 
     vscode.postMessage({
         type: 'ready',
@@ -103,6 +103,14 @@ async function main() {
         });
     };
 
+    const restartEditor = () => {
+        editor.action(async (ctx) => {
+            const view = ctx.get(editorViewCtx);
+            view.dom.parentElement?.remove();
+            editor = await createEditor();
+        });
+    };
+
     window.addEventListener('message', (event) => {
         const message = event.data;
         switch (message.type) {
@@ -110,13 +118,14 @@ async function main() {
                 const text = message.text;
                 if (text === contentCache) return;
                 serverLock = true;
-                console.log('-------update-------');
-                console.log(text);
-                console.log(contentCache);
 
                 updateEditor(text);
                 vscode.setState({ text });
 
+                return;
+            }
+            case 'restart': {
+                restartEditor();
                 return;
             }
         }

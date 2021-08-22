@@ -72,6 +72,13 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
             changeDocumentSubscription.dispose();
         });
 
+        vscode.window.onDidChangeActiveColorTheme(() => {
+            console.log('---change color scheme---');
+            webviewPanel.webview.postMessage({
+                type: 'restart',
+            });
+        });
+
         webviewPanel.webview.onDidReceiveMessage((e) => {
             switch (e.type) {
                 case 'update':

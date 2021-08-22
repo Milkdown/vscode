@@ -1,5 +1,6 @@
 import { css } from '@emotion/css';
-export const widget = ({ palette, size }) => ({
+import { ThemePack } from '@milkdown/design-system';
+export const widget: ThemePack['widget'] = ({ palette, size }) => ({
     icon: (key) => css`
         content: '${key}';
 
