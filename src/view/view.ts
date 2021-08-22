@@ -1,5 +1,5 @@
 import { Slice } from 'prosemirror-model';
-import { nord } from '@milkdown/theme-nord';
+import { vscode as vscodeTheme } from '../theme-vscode/index';
 import { Editor, rootCtx, editorViewCtx, parserCtx, defaultValueCtx } from '@milkdown/core';
 import { gfm } from '@milkdown/preset-gfm';
 import { tooltip } from '@milkdown/plugin-tooltip';
@@ -53,7 +53,7 @@ const createEditor = () =>
                 ],
             });
         })
-        .use(nord)
+        .use(vscodeTheme)
         .use(gfm)
         .use(slash)
         .use(tooltip)
