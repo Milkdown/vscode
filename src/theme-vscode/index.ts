@@ -2,22 +2,23 @@ import { injectGlobal } from '@emotion/css';
 import { themeFactory } from '@milkdown/core';
 import { color } from './color';
 import { view } from './view';
-import { widget } from './widget';
+import { mixin } from './mixin';
+import { slots } from './slots';
 
 export const vscode = () =>
     themeFactory({
         font: {
-            font: ['var(--vscode-font-family)'],
-            fontCode: ['var(--vscode-editor-font-family)'],
+            typography: ['var(--vscode-font-family)'],
+            code: ['var(--vscode-editor-font-family)'],
         },
         size: {
             radius: '4px',
             lineWidth: '1px',
         },
         color: color(),
-        widget,
-        global: ({ palette, font, widget, size }) => {
-            var _a, _b;
+        slots,
+        mixin,
+        global: ({ palette, font, mixin, size }) => {
             const css = injectGlobal;
             css`
                 body {
@@ -29,16 +30,16 @@ export const vscode = () =>
                     min-height: 100vh;
 
                     position: relative;
-                    font-family: ${font.font};
+                    font-family: ${font.typography};
                     margin-left: auto;
                     margin-right: auto;
-                    ${(_a = widget.shadow) === null || _a === void 0 ? void 0 : _a.call(widget)};
-                    padding: 1.25rem;
+                    ${mixin.shadow()};
+                    padding: 4.5rem 1.25rem 1rem;
                     box-sizing: border-box;
 
                     .code-fence {
                         background: unset;
-                        ${widget.border?.()}
+                        ${mixin.border()}
                     }
 
                     .editor {
@@ -92,7 +93,7 @@ export const vscode = () =>
                     }
 
                     li.ProseMirror-selectednode::after {
-                        ${(_b = widget.border) === null || _b === void 0 ? void 0 : _b.call(widget)}
+                        ${mixin.border()};
                     }
 
                     & ::selection {
