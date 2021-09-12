@@ -96,6 +96,10 @@ export const vscode = () =>
                         ${mixin.border()};
                     }
 
+                    .math-src > div {
+                        color: ${palette('neutral')};
+                    }
+
                     & ::selection {
                         background: ${palette('secondary', 0.38)};
                     }

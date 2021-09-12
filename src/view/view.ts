@@ -9,6 +9,9 @@ import { listener, listenerCtx } from '@milkdown/plugin-listener';
 import { clipboard } from '@milkdown/plugin-clipboard';
 import { emoji } from '@milkdown/plugin-emoji';
 import { prism } from '@milkdown/plugin-prism';
+import { math } from '@milkdown/plugin-math';
+
+import 'katex/dist/katex.min';
 
 const debounce = <T extends unknown[]>(func: (...args: T) => void, delay: number) => {
     let timer: number;
@@ -55,6 +58,7 @@ const createEditor = () =>
         })
         .use(vscodeTheme())
         .use(gfm)
+        .use(math)
         .use(slash)
         .use(tooltip)
         .use(history)
