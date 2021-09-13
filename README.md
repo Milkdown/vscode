@@ -30,6 +30,7 @@ For example if there is an image subfolder under your extension project workspac
 -   Copy and paste with markdown
 -   Slash commands
 -   Tooltip bar
+-   Math support
 
 ## License
 
