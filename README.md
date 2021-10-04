@@ -10,10 +10,6 @@ Edit markdown in a WYSIWYG way, powered by [milkdown](https://saul-mirone.github
 
 > Plugin is still in dev progress, this is an early access version.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
 ![Show](https://raw.githubusercontent.com/Saul-Mirone/milkdown-vscode/main/milkdown-vscode.gif)
 
 ### Usage:
@@ -31,6 +27,11 @@ For example if there is an image subfolder under your extension project workspac
 -   Slash commands
 -   Tooltip bar
 -   Math support
+
+# Contributor
+
+<a title="Saul Mirone" href="https://github.com/Saul-Mirone"><img src="https://avatars.githubusercontent.com/u/10047788?v=4" width="100" alt="profile picture of Saul Mirone"></a>
+<a title="calvinfung" href="https://github.com/hereisfun"><img src="https://avatars.githubusercontent.com/u/20593467?v=4" width="100" alt="profile picture of calvinfung"></a>
 
 ## License
 
