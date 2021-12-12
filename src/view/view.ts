@@ -105,7 +105,6 @@ async function main() {
         const message = event.data;
         switch (message.type) {
             case 'update': {
-                console.log('---wtf---');
                 const text = message.text;
                 if (text === contentCache) return;
                 serverLock = true;
