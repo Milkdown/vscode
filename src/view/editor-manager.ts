@@ -16,11 +16,14 @@ export class EditorManager {
 
     update = (markdown: string): boolean => {
         if (!this.editor) return false;
-        if (typeof markdown !== 'string') return false;
+        const text = this.vscode.getState()?.text;
+        console.log(markdown);
+        if (typeof markdown !== 'string' || text === markdown) return false;
 
         return this.editor.action((ctx) => {
             const view = ctx.get(editorViewCtx);
             const parser = ctx.get(parserCtx);
+
             const doc = parser(markdown);
             if (!doc) {
                 return false;

@@ -16,6 +16,25 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
 
             vscode.commands.executeCommand('vscode.openWith', url, MilkdownEditorProvider.viewType);
         });
+        vscode.commands.registerCommand('extension.milkdown.bold', () => {});
+        vscode.commands.registerCommand('extension.milkdown.italic', () => {});
+        vscode.commands.registerCommand('extension.milkdown.inline_code', () => {});
+        vscode.commands.registerCommand('extension.milkdown.strike_through', () => {});
+        vscode.commands.registerCommand('extension.milkdown.text', () => {});
+        vscode.commands.registerCommand('extension.milkdown.h1', () => {});
+        vscode.commands.registerCommand('extension.milkdown.h2', () => {});
+        vscode.commands.registerCommand('extension.milkdown.h3', () => {});
+        vscode.commands.registerCommand('extension.milkdown.h4', () => {});
+        vscode.commands.registerCommand('extension.milkdown.h5', () => {});
+        vscode.commands.registerCommand('extension.milkdown.h6', () => {});
+        vscode.commands.registerCommand('extension.milkdown.ordered_list', () => {});
+        vscode.commands.registerCommand('extension.milkdown.bullet_list', () => {});
+        vscode.commands.registerCommand('extension.milkdown.task_list', () => {});
+        vscode.commands.registerCommand('extension.milkdown.code', () => {});
+        vscode.commands.registerCommand('extension.milkdown.lift', () => {});
+        vscode.commands.registerCommand('extension.milkdown.sink', () => {});
+        vscode.commands.registerCommand('extension.milkdown.exit_block', () => {});
+        vscode.commands.registerCommand('extension.milkdown.line_break', () => {});
 
         const provider = new MilkdownEditorProvider(context);
         const providerRegistration = vscode.window.registerCustomEditorProvider(
@@ -71,9 +90,14 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
                     return;
                 case 'client-focus':
                     this.clientIsFocus = true;
+                    vscode.commands.executeCommand('setContext', 'milkdown.active', true);
                     return;
                 case 'client-blur':
                     this.clientIsFocus = false;
+                    vscode.commands.executeCommand('setContext', 'milkdown.active', false);
+                    return;
+                case 'client-ready':
+                    updateWebview();
                     return;
             }
         });
