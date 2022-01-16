@@ -37,23 +37,16 @@ const createEditor = () =>
             if (state?.text) {
                 ctx.set(defaultValueCtx, state.text);
             }
-            ctx.set(listenerCtx, {
-                markdown: [
-                    debounce((getDoc: () => string) => {
-                        if (serverLock) {
-                            serverLock = false;
-                            return;
-                        }
-                        const text = getDoc();
-                        if (contentCache === text) return;
-                        contentCache = text;
-                        vscode.setState({ text });
-                        vscode.postMessage({
-                            type: 'update',
-                            content: text,
-                        });
-                    }, 200),
-                ],
+            ctx.get(listenerCtx).markdownUpdated((_, markdown) => {
+                if (serverLock) {
+                    serverLock = false;
+                    return;
+                }
+                vscode.setState({ text: markdown });
+                vscode.postMessage({
+                    type: 'update',
+                    content: markdown,
+                });
             });
         })
         .use(vscodeTheme())
