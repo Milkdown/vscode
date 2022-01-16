@@ -29,8 +29,7 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
 
     constructor(private readonly context: vscode.ExtensionContext) {}
 
-    private content = '';
-    private clientLock = false;
+    private clientIsFocus = false;
 
     public async resolveCustomTextEditor(
         document: vscode.TextDocument,
@@ -42,7 +41,6 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
 
         const updateWebview = () => {
             const text = document.getText();
-            if (text === this.content) return;
             webviewPanel.webview.postMessage({
                 type: 'update',
                 text,
@@ -50,12 +48,7 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
         };
 
         const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument((e) => {
-            console.log('--------changeDocumentSubscription----------');
-            if (this.clientLock) {
-                this.clientLock = false;
-                return;
-            }
-            if (e.document.uri.toString() === document.uri.toString()) {
+            if (e.document.uri.toString() === document.uri.toString() && !this.clientIsFocus) {
                 updateWebview();
             }
         });
@@ -72,14 +65,15 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
 
         webviewPanel.webview.onDidReceiveMessage((e) => {
             switch (e.type) {
-                case 'update':
-                    this.clientLock = true;
-                    this.updateDocument(document, e.content);
+                case 'client-update':
+                    const nextMarkdown = e.content;
+                    this.updateDocument(document, nextMarkdown);
                     return;
-                case 'ready':
-                    this.clientLock = false;
-                    this.content = '';
-                    updateWebview();
+                case 'client-focus':
+                    this.clientIsFocus = true;
+                    return;
+                case 'client-blur':
+                    this.clientIsFocus = false;
                     return;
             }
         });
@@ -89,12 +83,12 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
         return getHtmlTemplateForWebView(webview, this.context.extensionUri);
     }
 
-    private updateDocument(document: vscode.TextDocument, content: string) {
+    private updateDocument(document: vscode.TextDocument, nextMarkdown: string) {
         const text = document.getText();
-        if (text === content) return;
-        this.content = content;
+        if (text === nextMarkdown) return;
+
         const edit = new vscode.WorkspaceEdit();
-        edit.replace(document.uri, new vscode.Range(0, 0, document.lineCount, 0), content);
+        edit.replace(document.uri, new vscode.Range(0, 0, document.lineCount, 0), nextMarkdown);
         vscode.workspace.applyEdit(edit);
     }
 }
