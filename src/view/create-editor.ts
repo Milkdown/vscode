@@ -8,11 +8,14 @@ import { prism } from '@milkdown/plugin-prism';
 import { slash } from '@milkdown/plugin-slash';
 import { tooltip } from '@milkdown/plugin-tooltip';
 import { gfm } from '@milkdown/preset-gfm';
+import { indent } from '@milkdown/plugin-indent';
+import { trailing } from '@milkdown/plugin-trailing';
+import { cursor } from '@milkdown/plugin-cursor';
 
 import { vscode as vscodeTheme } from '../theme-vscode';
 import { ClientMessage } from './client-message';
 
-import 'katex/dist/katex.min';
+import 'katex/dist/katex.min.js';
 
 export const createEditor = (vscode: any, message: ClientMessage) =>
     Editor.make()
@@ -37,7 +40,7 @@ export const createEditor = (vscode: any, message: ClientMessage) =>
                     message.ready();
                 });
         })
-        .use(vscodeTheme())
+        .use(vscodeTheme)
         .use(gfm)
         .use(math)
         .use(slash)
@@ -47,4 +50,7 @@ export const createEditor = (vscode: any, message: ClientMessage) =>
         .use(emoji)
         .use(clipboard)
         .use(prism)
+        .use(indent)
+        .use(cursor)
+        .use(trailing)
         .create();

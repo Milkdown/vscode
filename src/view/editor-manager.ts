@@ -1,5 +1,5 @@
 import { Editor, editorViewCtx, parserCtx, rootCtx } from '@milkdown/core';
-import { Slice } from '@milkdown/prose';
+import { Slice } from '@milkdown/prose/model';
 import { ClientMessage } from './client-message';
 import { createEditor } from './create-editor';
 
@@ -17,7 +17,6 @@ export class EditorManager {
     update = (markdown: string): boolean => {
         if (!this.editor) return false;
         const text = this.vscode.getState()?.text;
-        console.log(markdown);
         if (typeof markdown !== 'string' || text === markdown) return false;
 
         return this.editor.action((ctx) => {

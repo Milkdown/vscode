@@ -1,109 +1,140 @@
-import { injectGlobal } from '@emotion/css';
-import { themeFactory } from '@milkdown/core';
+import {
+    hex2rgb,
+    ThemeBorder,
+    ThemeColor,
+    themeFactory,
+    ThemeFont,
+    ThemeGlobal,
+    ThemeIcon,
+    ThemeScrollbar,
+    ThemeShadow,
+    ThemeSize,
+} from '@milkdown/core';
+import { useAllPresetRenderer } from '@milkdown/theme-pack-helper';
 import { color } from './color';
-import { view } from './view';
-import { mixin } from './mixin';
-import { slots } from './slots';
+import { code, typography } from './font';
+import { getIcon } from './icon';
+import { getStyle } from './style';
 
-export const vscode = () =>
-    themeFactory({
-        font: {
-            typography: ['var(--vscode-font-family)'],
-            code: ['var(--vscode-editor-font-family)'],
-        },
-        size: {
+export const vscode = themeFactory((emotion, manager) => {
+    const { css } = emotion;
+
+    manager.set(ThemeColor, (options) => {
+        if (!options) return;
+        const [key, opacity] = options;
+        const colorSet = color();
+        const hex = colorSet[key];
+
+        const isHex = hex.startsWith('#');
+
+        if (isHex) {
+            const rgb = hex2rgb(hex);
+            if (!rgb) return;
+
+            return `rgba(${rgb?.join(', ')}, ${opacity || 1})`;
+        }
+
+        const isRgba = hex.startsWith('rgba');
+
+        if (isRgba) {
+            const rgba = hex
+                .replace(/^rgba\(/, '')
+                .replace(/\)$/, '')
+                .split(',')
+                .slice(0, 3);
+            return `rgba(${rgba?.join(', ')}, ${opacity || 1})`;
+        }
+
+        const isRgb = hex.startsWith('rgb');
+
+        if (isRgb) {
+            const rgb = hex
+                .replace(/^rgb\(/, '')
+                .replace(/\)$/, '')
+                .split(',')
+                .slice(0, 3);
+            return `rgba(${rgb?.join(', ')}, ${opacity || 1})`;
+        }
+    });
+    manager.set(ThemeSize, (key) => {
+        const size = {
             radius: '4px',
             lineWidth: '1px',
-        },
-        color: color(),
-        slots,
-        mixin,
-        global: ({ palette, font, mixin, size }) => {
-            const css = injectGlobal;
-            css`
-                body {
-                    padding: 0;
-                }
-                ${view};
-                .milkdown {
-                    background: ${palette('surface')};
-                    min-height: 100vh;
+        };
 
-                    position: relative;
-                    font-family: ${font.typography};
-                    margin-left: auto;
-                    margin-right: auto;
-                    ${mixin.shadow()};
-                    padding: 4.5rem 1.25rem 1rem;
-                    box-sizing: border-box;
-
-                    .code-fence {
-                        background: unset;
-                        ${mixin.border()}
-                    }
-
-                    .editor {
-                        outline: none;
-                        height: 100%;
-
-                        & > * {
-                            margin: 1.875rem 0;
-                        }
-
-                        h1,
-                        h2,
-                        h3,
-                        h4,
-                        h5,
-                        h6 {
-                            margin-top: 24px !important;
-                            margin-bottom: 16px !important;
-                            font-weight: 600;
-                            line-height: 1.25;
-                        }
-                        h1 {
-                            padding-bottom: 0.3em;
-                            font-size: 2em;
-                        }
-                        h2 {
-                            padding-bottom: 0.3em;
-                            font-size: 1.5em;
-                        }
-                        h3 {
-                            font-size: 1.25em;
-                        }
-                        h4 {
-                            font-size: 1em;
-                        }
-                        h5,
-                        h6 {
-                            font-size: 0.875em;
-                        }
-                    }
-                    .ProseMirror.editor > :first-child {
-                        margin-top: 0 !important;
-                    }
-
-                    .ProseMirror-selectednode {
-                        outline: ${size.lineWidth} solid ${palette('line')};
-                    }
-
-                    li.ProseMirror-selectednode {
-                        outline: none;
-                    }
-
-                    li.ProseMirror-selectednode::after {
-                        ${mixin.border()};
-                    }
-
-                    .math-src > div {
-                        color: ${palette('neutral')};
-                    }
-
-                    & ::selection {
-                        background: ${palette('secondary', 0.38)};
-                    }
-                }
-            `;
-        },
+        if (!key) return;
+        return size[key];
     });
+
+    manager.set(ThemeFont, (key) => {
+        if (!key) return;
+        const font = {
+            typography,
+            code,
+        };
+        return font[key].join(', ');
+    });
+
+    manager.set(ThemeScrollbar, ([direction = 'y', type = 'normal'] = ['y', 'normal'] as never) => {
+        const main = manager.get(ThemeColor, ['secondary', 0.38]);
+        const bg = manager.get(ThemeColor, ['secondary', 0.12]);
+        const hover = manager.get(ThemeColor, ['secondary']);
+        return css`
+            scrollbar-width: thin;
+            scrollbar-color: ${main} ${bg};
+            -webkit-overflow-scrolling: touch;
+            &::-webkit-scrollbar {
+                ${direction === 'y' ? 'width' : 'height'}: ${type === 'thin' ? 2 : 12}px;
+                background-color: transparent;
+            }
+            &::-webkit-scrollbar-track {
+                border-radius: 999px;
+                background: transparent;
+                border: 4px solid transparent;
+            }
+            &::-webkit-scrollbar-thumb {
+                border-radius: 999px;
+                background-color: ${main};
+                border: ${type === 'thin' ? 0 : 4}px solid transparent;
+                background-clip: content-box;
+            }
+            &::-webkit-scrollbar-thumb:hover {
+                background-color: ${hover};
+            }
+        `;
+    });
+
+    manager.set(ThemeShadow, () => {
+        const lineWidth = manager.get(ThemeSize, 'lineWidth');
+        const getShadow = (opacity: number) => manager.get(ThemeColor, ['shadow', opacity]);
+        return css`
+            box-shadow: 0 ${lineWidth} ${lineWidth} ${getShadow(0.14)}, 0 2px ${lineWidth} ${getShadow(0.12)},
+                0 ${lineWidth} 3px ${getShadow(0.2)};
+        `;
+    });
+
+    manager.set(ThemeBorder, (direction) => {
+        const lineWidth = manager.get(ThemeSize, 'lineWidth');
+        const line = manager.get(ThemeColor, ['line']);
+        if (!direction) {
+            return css`
+                border: ${lineWidth} solid ${line};
+            `;
+        }
+        return css`
+            ${`border-${direction}`}: ${lineWidth} solid ${line};
+        `;
+    });
+
+    manager.set(ThemeIcon, (icon) => {
+        if (!icon) return;
+
+        return getIcon(icon);
+    });
+
+    manager.set(ThemeGlobal, () => {
+        getStyle(manager, emotion);
+    });
+
+    useAllPresetRenderer(manager, emotion);
+});
