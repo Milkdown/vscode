@@ -171,6 +171,24 @@
                 "mac": "cmd+alt+c",
                 "command": "extension.milkdown.code",
                 "when": "milkdown.active && !inDebugRepl"
+            },
+            {
+                "key": "tab",
+                "mac": "tab",
+                "command": "extension.milkdown.tab",
+                "when": "milkdown.active && !inDebugRepl"
+            },
+            {
+                "key": "ctrl+z",
+                "mac": "cmd+z",
+                "command": "extension.milkdown.undo",
+                "when": "milkdown.active && !inDebugRepl"
+            },
+            {
+                "key": "ctrl+shift+z",
+                "mac": "cmd+shift+z",
+                "command": "extension.milkdown.redo",
+                "when": "milkdown.active && !inDebugRepl"
             }
         ]
     },

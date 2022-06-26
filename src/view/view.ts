@@ -4,9 +4,9 @@ import { EditorManager } from './editor-manager';
 // @ts-ignore
 const vscode = acquireVsCodeApi();
 
-function main() {
-    console.log('--------run main------');
+const loading = document.getElementById('loading');
 
+function main() {
     const message = new ClientMessage(vscode);
     const editor = new EditorManager(vscode, message);
 
@@ -18,7 +18,7 @@ function main() {
                 editor.update(text);
                 return;
             }
-            case 'restart': {
+            case 'flush-theme': {
                 editor.flush();
                 return;
             }

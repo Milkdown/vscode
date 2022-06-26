@@ -1,5 +1,7 @@
-import { Editor, editorViewCtx, parserCtx, rootCtx } from '@milkdown/core';
+import { Editor, editorViewCtx, emotionCtx, parserCtx, rootCtx } from '@milkdown/core';
 import { Slice } from '@milkdown/prose/model';
+import { switchTheme } from '@milkdown/utils';
+import { vscodeTheme } from '../theme-vscode';
 import { ClientMessage } from './client-message';
 import { createEditor } from './create-editor';
 
@@ -28,7 +30,11 @@ export class EditorManager {
                 return false;
             }
             const state = view.state;
-            view.dispatch(state.tr.replace(0, state.doc.content.size, new Slice(doc.content, 0, 0)));
+            view.dispatch(
+                state.tr
+                    .setMeta('addToHistory', false)
+                    .replace(0, state.doc.content.size, new Slice(doc.content, 0, 0)),
+            );
             this.vscode.setState({ text: markdown });
             return true;
         });
@@ -36,13 +42,6 @@ export class EditorManager {
 
     flush = () => {
         if (!this.editor) return;
-        return this.editor.action(async (ctx) => {
-            const root = ctx.get(rootCtx);
-            const rootEl = typeof root === 'string' ? document.querySelector(root) : root;
-            if (rootEl instanceof HTMLElement) {
-                rootEl.firstElementChild?.remove();
-            }
-            await this.create();
-        });
+        return this.editor.action(switchTheme(vscodeTheme()));
     };
 }

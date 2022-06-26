@@ -21,6 +21,9 @@ const commands = [
     'extension.milkdown.sink',
     'extension.milkdown.exit_block',
     'extension.milkdown.line_break',
+    'extension.milkdown.tab',
+    'extension.milkdown.undo',
+    'extension.milkdown.redo',
 ];
 
 export function registerCommand(viewType: string): void {

@@ -8,7 +8,7 @@ import { prism } from '@milkdown/plugin-prism';
 import { slash } from '@milkdown/plugin-slash';
 import { tooltip } from '@milkdown/plugin-tooltip';
 import { gfm } from '@milkdown/preset-gfm';
-import { indent } from '@milkdown/plugin-indent';
+import { indent, indentPlugin } from '@milkdown/plugin-indent';
 import { trailing } from '@milkdown/plugin-trailing';
 import { cursor } from '@milkdown/plugin-cursor';
 
@@ -40,7 +40,7 @@ export const createEditor = (vscode: any, message: ClientMessage) =>
                     message.ready();
                 });
         })
-        .use(vscodeTheme)
+        .use(vscodeTheme())
         .use(gfm)
         .use(math)
         .use(slash)
@@ -50,7 +50,11 @@ export const createEditor = (vscode: any, message: ClientMessage) =>
         .use(emoji)
         .use(clipboard)
         .use(prism)
-        .use(indent)
+        .use(
+            indent.configure(indentPlugin, {
+                type: 'space',
+            }),
+        )
         .use(cursor)
         .use(trailing)
         .create();

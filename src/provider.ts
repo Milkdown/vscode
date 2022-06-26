@@ -51,17 +51,18 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
             }
         });
 
-        webviewPanel.onDidChangeViewState((e) => {
+        const changeViewStateSubscription = webviewPanel.onDidChangeViewState((e) => {
             this.clientIsVisible = e.webviewPanel.visible;
         });
 
         webviewPanel.onDidDispose(() => {
             changeDocumentSubscription.dispose();
+            changeViewStateSubscription.dispose();
         });
 
         vscode.window.onDidChangeActiveColorTheme(() => {
             webviewPanel.webview.postMessage({
-                type: 'restart',
+                type: 'flush-theme',
             });
         });
 
