@@ -189,7 +189,8 @@
         "test-compile": "tsc -p ./",
         "test-watch": "tsc -watch -p ./",
         "pretest": "npm run test-compile && npm run lint",
-        "lint": "eslint src --ext ts"
+        "lint": "eslint src --ext ts",
+        "vscode-package": "vsce package --no-dependencies"
     },
     "devDependencies": {
         "@milkdown/core": "^6.2.0",
