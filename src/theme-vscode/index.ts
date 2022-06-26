@@ -16,7 +16,7 @@ import { code, typography } from './font';
 import { getIcon } from './icon';
 import { getStyle } from './style';
 
-export const vscode = themeFactory((emotion, manager) => {
+export const vscodeTheme = themeFactory((emotion, manager) => {
     const { css } = emotion;
 
     manager.set(ThemeColor, (options) => {

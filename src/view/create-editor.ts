@@ -12,8 +12,8 @@ import { indent } from '@milkdown/plugin-indent';
 import { trailing } from '@milkdown/plugin-trailing';
 import { cursor } from '@milkdown/plugin-cursor';
 
-import { vscode as vscodeTheme } from '../theme-vscode';
-import { ClientMessage } from './client-message';
+import { vscodeTheme } from '../theme-vscode';
+import type { ClientMessage } from './client-message';
 
 import 'katex/dist/katex.min.js';
 

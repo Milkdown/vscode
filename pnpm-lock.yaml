@@ -18,6 +18,7 @@ specifiers:
   '@milkdown/preset-gfm': ^6.2.0
   '@milkdown/prose': ^6.2.0
   '@milkdown/theme-pack-helper': ^6.2.0
+  '@milkdown/utils': ^6.2.0
   '@types/glob': ^7.1.3
   '@types/node': 16.x
   '@types/vscode': ^1.59.0
@@ -58,6 +59,7 @@ devDependencies:
   '@milkdown/preset-gfm': 6.2.0_aeddqgehelz6qlor2kp3vuhcii
   '@milkdown/prose': 6.2.0
   '@milkdown/theme-pack-helper': 6.2.0_zd7ndzeswl7rru6bjrz5nnz66y
+  '@milkdown/utils': 6.2.0_zd7ndzeswl7rru6bjrz5nnz66y
   '@types/glob': 7.2.0
   '@types/node': 16.11.41
   '@types/vscode': 1.68.0

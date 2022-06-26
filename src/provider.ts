@@ -1,54 +1,33 @@
 import * as vscode from 'vscode';
+import { registerCommand } from './register-command';
 import { getHtmlTemplateForWebView } from './template.html';
 
 export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
+    public static readonly viewType = 'milkdown.editor';
     public static register(context: vscode.ExtensionContext): vscode.Disposable {
-        vscode.commands.registerCommand('milkdown.open', (uri?: vscode.Uri) => {
-            let url = uri;
-            if (!url) {
-                url = vscode.window.activeTextEditor?.document.uri;
-            }
-            console.log(url);
-            if (!url) {
-                console.error('Cannot get url');
-                return;
-            }
-
-            vscode.commands.executeCommand('vscode.openWith', url, MilkdownEditorProvider.viewType);
-        });
-        vscode.commands.registerCommand('extension.milkdown.bold', () => {});
-        vscode.commands.registerCommand('extension.milkdown.italic', () => {});
-        vscode.commands.registerCommand('extension.milkdown.inline_code', () => {});
-        vscode.commands.registerCommand('extension.milkdown.strike_through', () => {});
-        vscode.commands.registerCommand('extension.milkdown.text', () => {});
-        vscode.commands.registerCommand('extension.milkdown.h1', () => {});
-        vscode.commands.registerCommand('extension.milkdown.h2', () => {});
-        vscode.commands.registerCommand('extension.milkdown.h3', () => {});
-        vscode.commands.registerCommand('extension.milkdown.h4', () => {});
-        vscode.commands.registerCommand('extension.milkdown.h5', () => {});
-        vscode.commands.registerCommand('extension.milkdown.h6', () => {});
-        vscode.commands.registerCommand('extension.milkdown.ordered_list', () => {});
-        vscode.commands.registerCommand('extension.milkdown.bullet_list', () => {});
-        vscode.commands.registerCommand('extension.milkdown.task_list', () => {});
-        vscode.commands.registerCommand('extension.milkdown.code', () => {});
-        vscode.commands.registerCommand('extension.milkdown.lift', () => {});
-        vscode.commands.registerCommand('extension.milkdown.sink', () => {});
-        vscode.commands.registerCommand('extension.milkdown.exit_block', () => {});
-        vscode.commands.registerCommand('extension.milkdown.line_break', () => {});
+        registerCommand(MilkdownEditorProvider.viewType);
 
         const provider = new MilkdownEditorProvider(context);
         const providerRegistration = vscode.window.registerCustomEditorProvider(
             MilkdownEditorProvider.viewType,
             provider,
+            {
+                webviewOptions: {
+                    retainContextWhenHidden: true,
+                },
+            },
         );
         return providerRegistration;
     }
 
-    public static readonly viewType = 'milkdown.editor';
+    private static getHtmlForWebview(context: vscode.ExtensionContext, webview: vscode.Webview): string {
+        return getHtmlTemplateForWebView(webview, context.extensionUri);
+    }
 
     constructor(private readonly context: vscode.ExtensionContext) {}
 
     private clientIsFocus = false;
+    private clientIsVisible = false;
 
     public async resolveCustomTextEditor(
         document: vscode.TextDocument,
@@ -56,7 +35,7 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
         _token: vscode.CancellationToken,
     ): Promise<void> {
         webviewPanel.webview.options = { enableScripts: true };
-        webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
+        webviewPanel.webview.html = MilkdownEditorProvider.getHtmlForWebview(this.context, webviewPanel.webview);
 
         const updateWebview = () => {
             const text = document.getText();
@@ -72,6 +51,10 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
             }
         });
 
+        webviewPanel.onDidChangeViewState((e) => {
+            this.clientIsVisible = e.webviewPanel.visible;
+        });
+
         webviewPanel.onDidDispose(() => {
             changeDocumentSubscription.dispose();
         });
@@ -83,6 +66,7 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
         });
 
         webviewPanel.webview.onDidReceiveMessage((e) => {
+            console.log('Receive Event: ', e.type);
             switch (e.type) {
                 case 'client-update':
                     const nextMarkdown = e.content;
@@ -101,10 +85,6 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
                     return;
             }
         });
-    }
-
-    private getHtmlForWebview(webview: vscode.Webview): string {
-        return getHtmlTemplateForWebView(webview, this.context.extensionUri);
     }
 
     private updateDocument(document: vscode.TextDocument, nextMarkdown: string) {

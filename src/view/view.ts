@@ -5,10 +5,10 @@ import { EditorManager } from './editor-manager';
 const vscode = acquireVsCodeApi();
 
 function main() {
+    console.log('--------run main------');
+
     const message = new ClientMessage(vscode);
     const editor = new EditorManager(vscode, message);
-
-    editor.create();
 
     window.addEventListener('message', (event) => {
         const message = event.data;
@@ -24,6 +24,8 @@ function main() {
             }
         }
     });
+
+    editor.create();
 }
 
 main();

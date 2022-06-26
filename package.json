@@ -210,6 +210,7 @@
         "@milkdown/preset-gfm": "^6.2.0",
         "@milkdown/prose": "^6.2.0",
         "@milkdown/theme-pack-helper": "^6.2.0",
+        "@milkdown/utils": "^6.2.0",
         "@types/glob": "^7.1.3",
         "@types/node": "16.x",
         "@types/vscode": "^1.59.0",
