@@ -1,3 +1,45 @@
 @import 'katex/dist/katex.css';
 @import 'prism-themes/themes/prism-nord.css';
 @import './font.css';
+
+#app {
+    display: flex;
+}
+
+#editor {
+    width: calc(100vw - 275px);
+}
+
+#outline {
+    margin: 0;
+    width: 275px;
+    box-sizing: border-box;
+    position: fixed;
+    height: 100vh;
+    right: 0;
+    overflow-y: auto;
+    padding-left: 20px;
+}
+
+#outline li {
+    list-style: none;
+}
+
+#outline a {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    text-decoration: none;
+    color: var(--vscode-menu-foreground);
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+#outline a:focus {
+    outline: none;
+    background-color: var(--vscode-list-focusBackground);
+}
+
+#outline a:hover {
+    background-color: var(--vscode-list-focusBackground);
+}
