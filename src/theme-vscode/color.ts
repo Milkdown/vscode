@@ -1,3 +1,4 @@
+/* Copyright 2021, Milkdown by Mirone.*/
 export const color = () => {
     const varMap: Record<string, string> = {};
 
@@ -12,7 +13,7 @@ export const color = () => {
             };
         })
         .forEach((varObj) => {
-            for (let key in varObj) {
+            for (const key in varObj) {
                 if (varObj[key]) {
                     varMap[key] = varObj[key];
                 }

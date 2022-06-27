@@ -1,3 +1,4 @@
+/* Copyright 2021, Milkdown by Mirone.*/
 import { Emotion, ThemeBorder, ThemeFont, ThemeManager, ThemeScrollbar, ThemeShadow, ThemeSize } from '@milkdown/core';
 import { getPalette } from '@milkdown/design-system';
 import { injectProsemirrorView } from '@milkdown/theme-pack-helper';

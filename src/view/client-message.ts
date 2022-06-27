@@ -1,4 +1,6 @@
+/* Copyright 2021, Milkdown by Mirone.*/
 export class ClientMessage {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(private vscode: any) {}
 
     update = (content: string) => {

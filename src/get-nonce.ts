@@ -1,3 +1,4 @@
+/* Copyright 2021, Milkdown by Mirone.*/
 export function getNonce() {
     let text = '';
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

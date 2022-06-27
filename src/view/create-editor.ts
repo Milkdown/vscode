@@ -1,4 +1,5 @@
-import { defaultValueCtx, Editor, rootCtx, ThemeImageType } from '@milkdown/core';
+/* Copyright 2021, Milkdown by Mirone.*/
+import { defaultValueCtx, Editor, rootCtx } from '@milkdown/core';
 import { clipboard } from '@milkdown/plugin-clipboard';
 import { cursor } from '@milkdown/plugin-cursor';
 import { emoji } from '@milkdown/plugin-emoji';
@@ -11,74 +12,15 @@ import { slash } from '@milkdown/plugin-slash';
 import { tooltip } from '@milkdown/plugin-tooltip';
 import { trailing } from '@milkdown/plugin-trailing';
 import { gfm, image } from '@milkdown/preset-gfm';
-import { PluginKey } from '@milkdown/prose/state';
-import { NodeView } from '@milkdown/prose/view';
-import type { ResourceManager } from './resource-manager';
 
 import { vscodeTheme } from '../theme-vscode';
+import { vsImage } from './vs-image';
 import type { ClientMessage } from './client-message';
+import type { ResourceManager } from './resource-manager';
 
 import 'katex/dist/katex.min.js';
 
-const key = new PluginKey('MILKDOWN_IMAGE_INPUT');
-const vsImage = (message: ClientMessage, resource: ResourceManager) =>
-    image.extend((original, utils, options) => {
-        return {
-            ...original,
-            view: () => (node) => {
-                let currNode = node;
-
-                const placeholder = options?.placeholder ?? 'Add an Image';
-                const isBlock = options?.isBlock ?? false;
-                const renderer = utils.themeManager.get<ThemeImageType>('image', {
-                    placeholder,
-                    isBlock,
-                });
-
-                if (!renderer) {
-                    return {} as NodeView;
-                }
-
-                const { dom, onUpdate } = renderer;
-
-                const updateLink = () => {
-                    const promise = resource.add(currNode.attrs.src);
-                    message.getResource(currNode.attrs.src);
-                    promise.then((url) => {
-                        if (url !== currNode.attrs.src) {
-                            const image = dom.querySelector('img');
-                            if (image) {
-                                image.setAttribute('src', url);
-                            }
-                        }
-                    });
-                };
-
-                onUpdate(currNode);
-                updateLink();
-
-                return {
-                    dom,
-                    update: (updatedNode) => {
-                        if (updatedNode.type.name !== 'image') return false;
-
-                        currNode = updatedNode;
-                        onUpdate(currNode);
-                        updateLink();
-
-                        return true;
-                    },
-                    selectNode: () => {
-                        dom.classList.add('ProseMirror-selectednode');
-                    },
-                    deselectNode: () => {
-                        dom.classList.remove('ProseMirror-selectednode');
-                    },
-                };
-            },
-        };
-    });
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createEditor = (vscode: any, message: ClientMessage, resource: ResourceManager) =>
     Editor.make()
         .config((ctx) => {

@@ -1,9 +1,10 @@
+/* Copyright 2021, Milkdown by Mirone.*/
 import { ClientMessage } from './client-message';
 import { EditorManager } from './editor-manager';
 import { ResourceManager } from './resource-manager';
 
-// @ts-ignore
-const vscode = acquireVsCodeApi();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const vscode = (globalThis as any).acquireVsCodeApi();
 
 function main() {
     const resource = new ResourceManager();

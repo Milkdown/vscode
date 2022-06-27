@@ -1,4 +1,5 @@
-import { Editor, editorViewCtx, emotionCtx, parserCtx, rootCtx } from '@milkdown/core';
+/* Copyright 2021, Milkdown by Mirone.*/
+import { Editor, editorViewCtx, parserCtx } from '@milkdown/core';
 import { Slice } from '@milkdown/prose/model';
 import { switchTheme } from '@milkdown/utils';
 import { vscodeTheme } from '../theme-vscode';
@@ -8,6 +9,7 @@ import { ResourceManager } from './resource-manager';
 
 export class EditorManager {
     private editor: Editor | null = null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(private vscode: any, private message: ClientMessage, private resource: ResourceManager) {}
 
     create = async () => {

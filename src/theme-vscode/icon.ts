@@ -1,4 +1,5 @@
-import { Icon,  IconValue } from '@milkdown/core';
+/* Copyright 2021, Milkdown by Mirone.*/
+import { Icon, IconValue } from '@milkdown/core';
 
 type IconMeta = {
     icon: string;

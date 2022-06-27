@@ -1,5 +1,5 @@
+/* Copyright 2021, Milkdown by Mirone.*/
 import * as vscode from 'vscode';
-import { getHtmlTemplateForWebView } from './template.html';
 
 const commands = [
     'extension.milkdown.bold',
@@ -28,7 +28,9 @@ const commands = [
 
 export function registerCommand(viewType: string): void {
     commands.forEach((command) => {
-        vscode.commands.registerCommand(command, () => {});
+        vscode.commands.registerCommand(command, () => {
+            // Nothing to do here
+        });
     });
 
     vscode.commands.registerCommand(

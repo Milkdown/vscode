@@ -1,5 +1,4 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
+/* Copyright 2021, Milkdown by Mirone.*/
 import * as vscode from 'vscode';
 import { MilkdownEditorProvider } from './provider';
 
@@ -14,4 +13,6 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+    // Nothing to do here
+}

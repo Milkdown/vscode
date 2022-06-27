@@ -28,7 +28,9 @@ specifiers:
   esbuild: ^0.14.0
   eslint: ^8.0.0
   eslint-config-prettier: ^8.5.0
+  eslint-plugin-header: ^3.1.1
   eslint-plugin-prettier: ^4.0.0
+  eslint-plugin-simple-import-sort: ^7.0.0
   glob: ^8.0.0
   katex: ^0.16.0
   postcss: ^8.3.6
@@ -69,7 +71,9 @@ devDependencies:
   esbuild: 0.14.47
   eslint: 8.18.0
   eslint-config-prettier: 8.5.0_eslint@8.18.0
+  eslint-plugin-header: 3.1.1_eslint@8.18.0
   eslint-plugin-prettier: 4.0.0_xu6ewijrtliw5q5lksq5uixwby
+  eslint-plugin-simple-import-sort: 7.0.0_eslint@8.18.0
   glob: 8.0.3
   katex: 0.16.0
   postcss: 8.4.14
@@ -1598,6 +1602,14 @@ packages:
       eslint: 8.18.0
     dev: true
 
+  /eslint-plugin-header/3.1.1_eslint@8.18.0:
+    resolution: {integrity: sha512-9vlKxuJ4qf793CmeeSrZUvVClw6amtpghq3CuWcB5cUNnWHQhgcqy5eF8oVKFk1G3Y/CbchGfEaw3wiIJaNmVg==}
+    peerDependencies:
+      eslint: '>=7.7.0'
+    dependencies:
+      eslint: 8.18.0
+    dev: true
+
   /eslint-plugin-prettier/4.0.0_xu6ewijrtliw5q5lksq5uixwby:
     resolution: {integrity: sha512-98MqmCJ7vJodoQK359bqQWaxOE0CS8paAz/GgjaZLyex4TTk3g9HugoO89EqWCrFiOqn9EVvcoo7gZzONCWVwQ==}
     engines: {node: '>=6.0.0'}
@@ -1613,6 +1625,14 @@ packages:
       eslint-config-prettier: 8.5.0_eslint@8.18.0
       prettier: 2.7.1
       prettier-linter-helpers: 1.0.0
+    dev: true
+
+  /eslint-plugin-simple-import-sort/7.0.0_eslint@8.18.0:
+    resolution: {integrity: sha512-U3vEDB5zhYPNfxT5TYR7u01dboFZp+HNpnGhkDB2g/2E4wZ/g1Q9Ton8UwCLfRV9yAKyYqDh62oHOamvkFxsvw==}
+    peerDependencies:
+      eslint: '>=5.0.0'
+    dependencies:
+      eslint: 8.18.0
     dev: true
 
   /eslint-scope/5.1.1:

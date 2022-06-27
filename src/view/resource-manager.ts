@@ -1,8 +1,11 @@
+/* Copyright 2021, Milkdown by Mirone.*/
 export class ResourceManager {
     private imageMap: Map<string, { promise: Promise<string>; resolver: (target: string) => void }> = new Map();
 
     add(url: string) {
-        let resolver: (target: string) => void = () => {};
+        let resolver: (target: string) => void = () => {
+            throw new Error('out of scope');
+        };
         const promise = new Promise<string>((resolve) => {
             resolver = resolve;
         });

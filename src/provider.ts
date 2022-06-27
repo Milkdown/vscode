@@ -1,3 +1,4 @@
+/* Copyright 2021, Milkdown by Mirone.*/
 import * as vscode from 'vscode';
 import { registerCommand } from './register-command';
 import { getHtmlTemplateForWebView } from './template.html';
@@ -32,7 +33,6 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
     public async resolveCustomTextEditor(
         document: vscode.TextDocument,
         webviewPanel: vscode.WebviewPanel,
-        _token: vscode.CancellationToken,
     ): Promise<void> {
         webviewPanel.webview.options = { enableScripts: true };
         webviewPanel.webview.html = MilkdownEditorProvider.getHtmlForWebview(this.context, webviewPanel.webview);
@@ -86,7 +86,7 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
                 case 'client-ready':
                     updateWebview();
                     return;
-                case 'client-get-resource':
+                case 'client-get-resource': {
                     const transformedUri = this.getResourceUri(webviewPanel.webview, document, e.url);
                     webviewPanel.webview.postMessage({
                         type: 'resource-response',
@@ -94,6 +94,7 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
                         result: transformedUri,
                     });
                     return;
+                }
             }
         });
     }
@@ -108,7 +109,7 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
     }
 
     private getResourceUri(webview: vscode.Webview, document: vscode.TextDocument, url: string): string {
-        if (!/^[a-z\-]+:/i.test(url)) {
+        if (!/^[a-z-]+:/i.test(url)) {
             const root = vscode.workspace.getWorkspaceFolder(document.uri);
             let uri = vscode.Uri.parse('markdown-link:' + url);
             if (root) {
@@ -116,8 +117,6 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
                     fragment: uri.fragment,
                     query: uri.query,
                 });
-                console.log(uri);
-                console.log(webview.asWebviewUri(uri).toString(true));
                 return webview.asWebviewUri(uri).toString(true);
             }
         }

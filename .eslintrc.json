@@ -5,18 +5,10 @@
         "ecmaVersion": 6,
         "sourceType": "module"
     },
-    "plugins": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:promise/recommended",
-        "plugin:react-hooks/recommended",
-        "plugin:prettier/recommended"
-    ],
+    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
+    "plugins": ["simple-import-sort", "header"],
     "rules": {
+        "header/header": ["error", "block", " Copyright 2021, Milkdown by Mirone."]
     },
-    "ignorePatterns": [
-        "out",
-        "dist",
-        "**/*.d.ts"
-    ]
+    "ignorePatterns": ["out", "dist", "**/*.d.ts"]
 }
