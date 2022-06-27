@@ -17,7 +17,6 @@
         "Programming Languages"
     ],
     "activationEvents": [
-        "onStartupFinished",
         "onCustomEditor:milkdown.editor",
         "onLanguage:markdown",
         "onCommand:milkdown.open"
