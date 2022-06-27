@@ -14,6 +14,7 @@ specifiers:
   '@milkdown/plugin-slash': ^6.2.0
   '@milkdown/plugin-tooltip': ^6.2.0
   '@milkdown/plugin-trailing': ^6.2.0
+  '@milkdown/plugin-upload': ^6.2.0
   '@milkdown/preset-commonmark': ^6.2.0
   '@milkdown/preset-gfm': ^6.2.0
   '@milkdown/prose': ^6.2.0
@@ -57,6 +58,7 @@ devDependencies:
   '@milkdown/plugin-slash': 6.2.0_zd7ndzeswl7rru6bjrz5nnz66y
   '@milkdown/plugin-tooltip': 6.2.0_zd7ndzeswl7rru6bjrz5nnz66y
   '@milkdown/plugin-trailing': 6.2.0_zd7ndzeswl7rru6bjrz5nnz66y
+  '@milkdown/plugin-upload': 6.2.0_zd7ndzeswl7rru6bjrz5nnz66y
   '@milkdown/preset-commonmark': 6.2.0_zd7ndzeswl7rru6bjrz5nnz66y
   '@milkdown/preset-gfm': 6.2.0_aeddqgehelz6qlor2kp3vuhcii
   '@milkdown/prose': 6.2.0
@@ -474,6 +476,18 @@ packages:
 
   /@milkdown/plugin-trailing/6.2.0_zd7ndzeswl7rru6bjrz5nnz66y:
     resolution: {integrity: sha512-ibt32WuAMLVEx6cUWkfg/RyUdH0ngjHYiBPfGbChrPszGQ09dHbsTrWaUpzMf1iv/64H05DV/2P38lGGvfAN1w==}
+    peerDependencies:
+      '@milkdown/core': ^6.0.1
+      '@milkdown/prose': ^6.0.1
+    dependencies:
+      '@milkdown/core': 6.2.0_@milkdown+prose@6.2.0
+      '@milkdown/prose': 6.2.0
+      '@milkdown/utils': 6.2.0_zd7ndzeswl7rru6bjrz5nnz66y
+      tslib: 2.4.0
+    dev: true
+
+  /@milkdown/plugin-upload/6.2.0_zd7ndzeswl7rru6bjrz5nnz66y:
+    resolution: {integrity: sha512-8yiEu7y45Ee2BQLX0VM06/KMgke6jnPsw7Yroy0sPS2OISD6nFkmoiP7dF3vNjPjVzd4GDiwenytX13g2YBrOA==}
     peerDependencies:
       '@milkdown/core': ^6.0.1
       '@milkdown/prose': ^6.0.1

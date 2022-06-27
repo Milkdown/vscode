@@ -12,6 +12,8 @@ import { slash } from '@milkdown/plugin-slash';
 import { tooltip } from '@milkdown/plugin-tooltip';
 import { trailing } from '@milkdown/plugin-trailing';
 import { gfm, image } from '@milkdown/preset-gfm';
+import { upload, uploadPlugin } from '@milkdown/plugin-upload';
+import { Node } from '@milkdown/prose/model';
 
 import { vscodeTheme } from '../theme-vscode';
 import { vsImage } from './vs-image';
@@ -61,4 +63,55 @@ export const createEditor = (vscode: any, message: ClientMessage, resource: Reso
         )
         .use(cursor)
         .use(trailing)
+        .use(
+            upload.configure(uploadPlugin, {
+                uploader: async (files, schema) => {
+                    const images: File[] = [];
+                    const readImageAsBase64 = (file: File): Promise<{ alt: string; src: string }> => {
+                        return new Promise((resolve) => {
+                            const reader = new FileReader();
+                            reader.addEventListener(
+                                'load',
+                                () => {
+                                    resolve({
+                                        alt: file.name,
+                                        src: reader.result?.toString().split(',')[1] as string,
+                                    });
+                                },
+                                false,
+                            );
+                            reader.readAsDataURL(file);
+                        });
+                    };
+
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files.item(i);
+                        if (!file) {
+                            continue;
+                        }
+
+                        // You can handle whatever the file type you want, we handle image here.
+                        if (!file.type.includes('image')) {
+                            continue;
+                        }
+
+                        images.push(file);
+                    }
+
+                    const nodes: Node[] = await Promise.all(
+                        images.map(async (image) => {
+                            const { alt, src: base64 } = await readImageAsBase64(image);
+                            const url = image.name;
+                            message.upload(url, base64);
+                            return schema.nodes.image.createAndFill({
+                                src: url,
+                                alt,
+                            }) as Node;
+                        }),
+                    );
+
+                    return nodes;
+                },
+            }),
+        )
         .create();

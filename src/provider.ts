@@ -1,5 +1,6 @@
 /* Copyright 2021, Milkdown by Mirone.*/
 import * as vscode from 'vscode';
+import { join } from 'path';
 import { registerCommand } from './register-command';
 import { getHtmlTemplateForWebView } from './template.html';
 
@@ -95,6 +96,17 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
                     });
                     return;
                 }
+                case 'client-upload': {
+                    this.uploadFile(webviewPanel.webview, document, e.base64, e.url).then(() => {
+                        const transformedUri = this.getResourceUri(webviewPanel.webview, document, e.url);
+                        webviewPanel.webview.postMessage({
+                            type: 'resource-response',
+                            origin: e.url,
+                            result: transformedUri,
+                        });
+                    });
+                    return;
+                }
             }
         });
     }
@@ -121,5 +133,12 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
             }
         }
         return url;
+    }
+
+    private async uploadFile(webview: vscode.Webview, document: vscode.TextDocument, base64: string, name: string) {
+        const root = vscode.workspace.getWorkspaceFolder(document.uri)?.uri.fsPath;
+        if (!root) return;
+        const content = Buffer.from(base64, 'base64');
+        await vscode.workspace.fs.writeFile(vscode.Uri.file(join(root, name)), content);
     }
 }

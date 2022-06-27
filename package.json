@@ -224,6 +224,7 @@
         "@milkdown/plugin-slash": "^6.2.0",
         "@milkdown/plugin-tooltip": "^6.2.0",
         "@milkdown/plugin-trailing": "^6.2.0",
+        "@milkdown/plugin-upload": "^6.2.0",
         "@milkdown/preset-commonmark": "^6.2.0",
         "@milkdown/preset-gfm": "^6.2.0",
         "@milkdown/prose": "^6.2.0",

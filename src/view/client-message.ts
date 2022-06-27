@@ -34,4 +34,12 @@ export class ClientMessage {
             url,
         });
     };
+
+    upload = (url: string, base64: string) => {
+        this.vscode.postMessage({
+            type: 'client-upload',
+            url,
+            base64,
+        });
+    };
 }
