@@ -29,7 +29,6 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
     constructor(private readonly context: vscode.ExtensionContext) {}
 
     private clientIsFocus = false;
-    private clientIsVisible = false;
 
     public async resolveCustomTextEditor(
         document: vscode.TextDocument,
@@ -52,13 +51,8 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
             }
         });
 
-        const changeViewStateSubscription = webviewPanel.onDidChangeViewState((e) => {
-            this.clientIsVisible = e.webviewPanel.visible;
-        });
-
         webviewPanel.onDidDispose(() => {
             changeDocumentSubscription.dispose();
-            changeViewStateSubscription.dispose();
         });
 
         vscode.window.onDidChangeActiveColorTheme(() => {
@@ -71,7 +65,7 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
             console.log('Receive Event: ', e.type);
             switch (e.type) {
                 case 'client-update':
-                    if (webviewPanel.active && this.clientIsVisible) {
+                    if (webviewPanel.active && webviewPanel.visible) {
                         const nextMarkdown = e.content;
                         this.updateDocument(document, nextMarkdown);
                     }
