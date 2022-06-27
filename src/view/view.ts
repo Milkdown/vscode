@@ -1,14 +1,14 @@
 import { ClientMessage } from './client-message';
 import { EditorManager } from './editor-manager';
+import { ResourceManager } from './resource-manager';
 
 // @ts-ignore
 const vscode = acquireVsCodeApi();
 
-const loading = document.getElementById('loading');
-
 function main() {
+    const resource = new ResourceManager();
     const message = new ClientMessage(vscode);
-    const editor = new EditorManager(vscode, message);
+    const editor = new EditorManager(vscode, message, resource);
 
     window.addEventListener('message', (event) => {
         const message = event.data;
@@ -20,6 +20,10 @@ function main() {
             }
             case 'flush-theme': {
                 editor.flush();
+                return;
+            }
+            case 'resource-response': {
+                resource.resolve(message.origin, message.result);
                 return;
             }
         }

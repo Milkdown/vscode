@@ -25,4 +25,11 @@ export class ClientMessage {
             type: 'client-ready',
         });
     };
+
+    getResource = (url: string) => {
+        this.vscode.postMessage({
+            type: 'client-get-resource',
+            url,
+        });
+    };
 }

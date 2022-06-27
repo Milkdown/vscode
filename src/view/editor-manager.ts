@@ -4,13 +4,14 @@ import { switchTheme } from '@milkdown/utils';
 import { vscodeTheme } from '../theme-vscode';
 import { ClientMessage } from './client-message';
 import { createEditor } from './create-editor';
+import { ResourceManager } from './resource-manager';
 
 export class EditorManager {
     private editor: Editor | null = null;
-    constructor(private vscode: any, private message: ClientMessage) {}
+    constructor(private vscode: any, private message: ClientMessage, private resource: ResourceManager) {}
 
     create = async () => {
-        const $ = await createEditor(this.vscode, this.message);
+        const $ = await createEditor(this.vscode, this.message, this.resource);
         this.editor = $;
 
         return $;

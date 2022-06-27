@@ -70,8 +70,10 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
             console.log('Receive Event: ', e.type);
             switch (e.type) {
                 case 'client-update':
-                    const nextMarkdown = e.content;
-                    this.updateDocument(document, nextMarkdown);
+                    if (webviewPanel.active && this.clientIsVisible) {
+                        const nextMarkdown = e.content;
+                        this.updateDocument(document, nextMarkdown);
+                    }
                     return;
                 case 'client-focus':
                     this.clientIsFocus = true;
@@ -84,6 +86,14 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
                 case 'client-ready':
                     updateWebview();
                     return;
+                case 'client-get-resource':
+                    const transformedUri = this.getResourceUri(webviewPanel.webview, document, e.url);
+                    webviewPanel.webview.postMessage({
+                        type: 'resource-response',
+                        origin: e.url,
+                        result: transformedUri,
+                    });
+                    return;
             }
         });
     }
@@ -95,5 +105,22 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
         const edit = new vscode.WorkspaceEdit();
         edit.replace(document.uri, new vscode.Range(0, 0, document.lineCount, 0), nextMarkdown);
         vscode.workspace.applyEdit(edit);
+    }
+
+    private getResourceUri(webview: vscode.Webview, document: vscode.TextDocument, url: string): string {
+        if (!/^[a-z\-]+:/i.test(url)) {
+            const root = vscode.workspace.getWorkspaceFolder(document.uri);
+            let uri = vscode.Uri.parse('markdown-link:' + url);
+            if (root) {
+                uri = vscode.Uri.joinPath(root.uri, uri.fsPath).with({
+                    fragment: uri.fragment,
+                    query: uri.query,
+                });
+                console.log(uri);
+                console.log(webview.asWebviewUri(uri).toString(true));
+                return webview.asWebviewUri(uri).toString(true);
+            }
+        }
+        return url;
     }
 }
