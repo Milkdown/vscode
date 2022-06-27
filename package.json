@@ -4,7 +4,7 @@
     "icon": "logo.png",
     "displayName": "Milkdown",
     "description": "Edit markdown in a WYSIWYG way, powered by milkdown.",
-    "version": "0.0.12",
+    "version": "0.0.13",
     "engines": {
         "vscode": "^1.59.0"
     },
