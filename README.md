@@ -28,6 +28,16 @@ Edit markdown in a WYSIWYG way, powered by [milkdown](https://saul-mirone.github
 -   Tooltip bar
 -   Math support
 
+### Set as Default
+
+If you want to use milkdown as your default markdown, you can add this config into your settings:
+
+```json
+"workbench.editorAssociations": {
+    "*.md": "milkdown.editor"
+}
+```
+
 # Contributor
 
 <a title="Saul Mirone" href="https://github.com/Saul-Mirone"><img src="https://avatars.githubusercontent.com/u/10047788?v=4" width="100" alt="profile picture of Saul Mirone"></a>
