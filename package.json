@@ -217,6 +217,7 @@
         "vscode-package": "vsce package --no-dependencies"
     },
     "devDependencies": {
+        "@babel/core": "^7.18.10",
         "@milkdown/core": "^6.2.0",
         "@milkdown/design-system": "^6.2.0",
         "@milkdown/plugin-clipboard": "^6.2.0",
