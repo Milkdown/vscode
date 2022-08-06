@@ -217,6 +217,7 @@
         "vscode-package": "vsce package --no-dependencies"
     },
     "devDependencies": {
+        "@babel/core": "^7.18.10",
         "@milkdown/core": "^6.2.0",
         "@milkdown/design-system": "^6.2.0",
         "@milkdown/plugin-clipboard": "^6.2.0",
@@ -251,7 +252,7 @@
         "glob": "^8.0.0",
         "katex": "^0.16.0",
         "postcss": "^8.3.6",
-        "postcss-cli": "^9.0.0",
+        "postcss-cli": "^10.0.0",
         "postcss-import": "^14.0.2",
         "prettier": "^2.7.1",
         "prism-themes": "^1.9.0",
