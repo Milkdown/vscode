@@ -32,7 +32,7 @@ specifiers:
   eslint-config-prettier: ^8.5.0
   eslint-plugin-header: ^3.1.1
   eslint-plugin-prettier: ^4.0.0
-  eslint-plugin-simple-import-sort: ^7.0.0
+  eslint-plugin-simple-import-sort: ^8.0.0
   glob: ^8.0.0
   katex: ^0.16.0
   postcss: ^8.3.6
@@ -77,7 +77,7 @@ devDependencies:
   eslint-config-prettier: 8.5.0_eslint@8.18.0
   eslint-plugin-header: 3.1.1_eslint@8.18.0
   eslint-plugin-prettier: 4.0.0_xu6ewijrtliw5q5lksq5uixwby
-  eslint-plugin-simple-import-sort: 7.0.0_eslint@8.18.0
+  eslint-plugin-simple-import-sort: 8.0.0_eslint@8.18.0
   glob: 8.0.3
   katex: 0.16.0
   postcss: 8.4.14
@@ -1869,8 +1869,8 @@ packages:
       prettier-linter-helpers: 1.0.0
     dev: true
 
-  /eslint-plugin-simple-import-sort/7.0.0_eslint@8.18.0:
-    resolution: {integrity: sha512-U3vEDB5zhYPNfxT5TYR7u01dboFZp+HNpnGhkDB2g/2E4wZ/g1Q9Ton8UwCLfRV9yAKyYqDh62oHOamvkFxsvw==}
+  /eslint-plugin-simple-import-sort/8.0.0_eslint@8.18.0:
+    resolution: {integrity: sha512-bXgJQ+lqhtQBCuWY/FUWdB27j4+lqcvXv5rUARkzbeWLwea+S5eBZEQrhnO+WgX3ZoJHVj0cn943iyXwByHHQw==}
     peerDependencies:
       eslint: '>=5.0.0'
     dependencies:
