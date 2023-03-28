@@ -242,7 +242,7 @@
         "@types/vscode": "^1.59.0",
         "@typescript-eslint/eslint-plugin": "^5.29.0",
         "@typescript-eslint/parser": "^5.29.0",
-        "concurrently": "^7.0.0",
+        "concurrently": "^8.0.0",
         "esbuild": "^0.17.0",
         "eslint": "^8.0.0",
         "eslint-config-prettier": "^8.5.0",
