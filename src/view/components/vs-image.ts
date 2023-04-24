@@ -10,18 +10,20 @@ import { LitNodeView } from '../utils/lit-node-view';
 @customElement('milkdown-vs-image')
 export class VsImage extends LitNodeView {
     private getUrl() {
-        const { src } = this.node.attrs;
+        const { src } = this.attrs;
 
         const promise = this.resource.add(src);
         this.message.getResource(src);
         return promise;
     }
 
-    override render() {
+    private renderImage = (src: string) => {
         const { selected } = this.ctx;
-        const image = this.getUrl().then(
-            (src) => html`<img class=${clsx('m-0', selected && 'ProseMirror-selectednode')} src="${src}" />`,
-        );
+        return html` <img class=${clsx('m-0', selected && 'ProseMirror-selectednode')} src="${src}" /> `;
+    };
+
+    override render() {
+        const image = this.getUrl().then(this.renderImage);
 
         return html`${until(image)}`;
     }
