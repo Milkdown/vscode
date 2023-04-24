@@ -49,3 +49,8 @@
 .prose li::after {
     all: unset !important;
 }
+
+.prose br[data-is-inline="true"],
+.prose br[data-is-inline="true"]::after {
+    content: ' '
+}
