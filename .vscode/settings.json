@@ -13,5 +13,8 @@
     "typescript.tsc.autoDetect": "off",
     "cSpell.words": ["milkdown"],
     "npm.packageManager": "npm",
-    "typescript.tsdk": "node_modules\\typescript\\lib"
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
 }

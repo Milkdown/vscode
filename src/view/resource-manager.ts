@@ -1,5 +1,14 @@
 /* Copyright 2021, Milkdown by Mirone.*/
 export class ResourceManager {
+    private static instance: ResourceManager;
+    static get Instance() {
+        if (!ResourceManager.instance) {
+            ResourceManager.instance = new ResourceManager();
+        }
+
+        return ResourceManager.instance;
+    }
+
     private imageMap: Map<string, { promise: Promise<string>; resolver: (target: string) => void }> = new Map();
 
     add(url: string) {

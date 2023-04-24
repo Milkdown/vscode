@@ -1,36 +1,47 @@
 /* Copyright 2021, Milkdown by Mirone.*/
-import { ClientMessage } from './client-message';
-import { EditorManager } from './editor-manager';
-import { ResourceManager } from './resource-manager';
+import { html } from 'lit';
+import { ShallowLitElement } from '@prosemirror-adapter/lit';
+import { customElement } from 'lit/decorators.js';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const vscode = (globalThis as any).acquireVsCodeApi();
+export { ProsemirrorAdapterProvider } from '@prosemirror-adapter/lit';
+export * from './editor';
 
-function main() {
-    const resource = new ResourceManager();
-    const message = new ClientMessage(vscode);
-    const editor = new EditorManager(vscode, message, resource);
+import 'katex/dist/katex.min.js';
 
-    window.addEventListener('message', (event) => {
-        const message = event.data;
-        switch (message.type) {
-            case 'update': {
-                const text = message.text;
-                editor.update(text);
-                return;
-            }
-            case 'flush-theme': {
-                editor.flush();
-                return;
-            }
-            case 'resource-response': {
-                resource.resolve(message.origin, message.result);
-                return;
-            }
-        }
-    });
-
-    editor.create();
+@customElement('milkdown-app')
+export class MilkdownApp extends ShallowLitElement {
+    override render() {
+        return html`
+            <prosemirror-adapter-provider>
+                <milkdown-editor></milkdown-editor>
+            </prosemirror-adapter-provider>
+        `;
+    }
 }
 
-main();
+declare global {
+    interface HTMLElementTagNameMap {
+        'milkdown-app': MilkdownApp;
+    }
+}
+
+// function main() {
+//     window.addEventListener('message', (event) => {
+//         const message = event.data;
+//         switch (message.type) {
+//             case 'update': {
+//                 const text = message.text;
+//                 editor.update(text);
+//                 return;
+//             }
+//             case 'resource-response': {
+//                 resource.resolve(message.origin, message.result);
+//                 return;
+//             }
+//         }
+//     });
+
+//     editor.create();
+// }
+
+// main();

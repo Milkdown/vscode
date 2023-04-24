@@ -55,12 +55,6 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
             changeDocumentSubscription.dispose();
         });
 
-        vscode.window.onDidChangeActiveColorTheme(() => {
-            webviewPanel.webview.postMessage({
-                type: 'flush-theme',
-            });
-        });
-
         webviewPanel.webview.onDidReceiveMessage((e) => {
             console.log('Receive Event: ', e.type);
             switch (e.type) {

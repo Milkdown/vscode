@@ -1,65 +1,46 @@
 /* Copyright 2021, Milkdown by Mirone.*/
-import { ThemeImageType } from '@milkdown/core';
-import { image } from '@milkdown/preset-gfm';
-import { NodeView } from '@milkdown/prose/view';
-import type { ResourceManager } from './resource-manager';
+// import { NodeView } from '@milkdown/prose/view';
+// import type { ResourceManager } from './resource-manager';
 
-import type { ClientMessage } from './client-message';
+// import type { ClientMessage } from './client-message';
 
-export const vsImage = (message: ClientMessage, resource: ResourceManager) =>
-    image.extend((original, utils, options) => {
-        return {
-            ...original,
-            view: () => (node) => {
-                let currNode = node;
+import { customElement } from 'lit/decorators.js';
+import { ShallowLitElement, useNodeViewContext } from '@prosemirror-adapter/lit';
+import { ResourceManager } from './resource-manager';
+import { ClientMessage } from './client-message';
+import { html } from 'lit';
+import { until } from 'lit/directives/until.js';
 
-                const placeholder = options?.placeholder ?? 'Add an Image';
-                const isBlock = options?.isBlock ?? false;
-                const renderer = utils.themeManager.get<ThemeImageType>('image', {
-                    placeholder,
-                    isBlock,
-                });
+@customElement('milkdown-vs-image')
+export class VsImage extends ShallowLitElement {
+    nodeViewContext = useNodeViewContext(this);
+    resource = ResourceManager.Instance;
+    message = ClientMessage.Instance;
 
-                if (!renderer) {
-                    return {} as NodeView;
-                }
+    private get ctx() {
+        const ctx = this.nodeViewContext.value;
+        if (!ctx) {
+            throw new Error();
+        }
+        return ctx;
+    }
 
-                const { dom, onUpdate } = renderer;
+    private get node() {
+        const { node } = this.ctx;
+        return node;
+    }
 
-                const updateLink = () => {
-                    const promise = resource.add(currNode.attrs.src);
-                    message.getResource(currNode.attrs.src);
-                    promise.then((url) => {
-                        if (url !== currNode.attrs.src) {
-                            const image = dom.querySelector('img');
-                            if (image) {
-                                image.setAttribute('src', url);
-                            }
-                        }
-                    });
-                };
+    private getUrl() {
+        const { src } = this.node.attrs;
 
-                onUpdate(currNode);
-                updateLink();
+        const promise = this.resource.add(src);
+        this.message.getResource(src);
+        return promise;
+    }
 
-                return {
-                    dom,
-                    update: (updatedNode) => {
-                        if (updatedNode.type.name !== 'image') return false;
+    override render() {
+        const image = this.getUrl().then((src) => html`<img src="${src}" />`);
 
-                        currNode = updatedNode;
-                        onUpdate(currNode);
-                        updateLink();
-
-                        return true;
-                    },
-                    selectNode: () => {
-                        dom.classList.add('ProseMirror-selectednode');
-                    },
-                    deselectNode: () => {
-                        dom.classList.remove('ProseMirror-selectednode');
-                    },
-                };
-            },
-        };
-    });
+        return html`${until(image)}`;
+    }
+}
