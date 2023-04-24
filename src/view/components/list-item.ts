@@ -17,10 +17,9 @@ export class ListItem extends LitNodeView {
     override render() {
         const { contentRef, selected } = this.ctx;
 
-        console.log(this.node);
         if (this.attrs.checked == null) {
             return html`<li class=${clsx('flex flex-colum items-start gap-2', selected && 'ProseMirror-selectednode')}>
-                <span>${this.attrs.label}</span>
+                ${html`<span>${this.attrs.listType === 'bullet' ? '⦿' : this.attrs.label}</span>`}
                 <div class="min-w-0 flex-1" ${ref(contentRef)}></div>
             </li>`;
         }
