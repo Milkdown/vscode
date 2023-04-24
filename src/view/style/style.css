@@ -4,9 +4,14 @@
 
 @import 'katex/dist/katex.css';
 @import 'prism-themes/themes/prism-nord.css';
+@import '@milkdown/prose/lib/style/prosemirror.css';
 
 @import './override-prose.css';
 @import './font.css';
+
+body {
+    padding: 0;
+}
 
 a:focus {
     @apply outline-none;

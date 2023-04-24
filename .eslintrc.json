@@ -5,10 +5,13 @@
         "ecmaVersion": 6,
         "sourceType": "module"
     },
-    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
-    "plugins": ["simple-import-sort", "header"],
+    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:import/typescript", "plugin:prettier/recommended"],
+    "plugins": ["simple-import-sort", "header", "import"],
     "rules": {
-        "header/header": ["error", "block", " Copyright 2021, Milkdown by Mirone."]
+        "header/header": ["error", "block", " Copyright 2021, Milkdown by Mirone."],
+        "import/order": "error",
+        "import/first": "error",
+        "import/newline-after-import": "error"
     },
     "overrides": [
         {

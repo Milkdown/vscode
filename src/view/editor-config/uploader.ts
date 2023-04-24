@@ -2,7 +2,7 @@
 import { Ctx } from '@milkdown/ctx';
 import { uploadConfig } from '@milkdown/plugin-upload';
 import { Node } from '@milkdown/prose/lib/model';
-import { ClientMessage } from './client-message';
+import { ClientMessage } from '../utils/client-message';
 
 export const useUploader = (ctx: Ctx, message: ClientMessage) => {
     ctx.update(uploadConfig.key, (prev) => ({

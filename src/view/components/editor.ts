@@ -5,7 +5,7 @@ import type { RefOrCallback } from 'lit/directives/ref.js';
 import { ShallowLitElement, useNodeViewFactory } from '@prosemirror-adapter/lit';
 import { ref } from 'lit/directives/ref.js';
 import { defaultValueCtx, Editor as Milkdown, editorViewCtx, parserCtx, rootCtx } from '@milkdown/core';
-import { commonmark, imageSchema } from '@milkdown/preset-commonmark';
+import { commonmark, imageSchema, listItemSchema } from '@milkdown/preset-commonmark';
 import { gfm } from '@milkdown/preset-gfm';
 import { math } from '@milkdown/plugin-math';
 import { history } from '@milkdown/plugin-history';
@@ -22,12 +22,13 @@ import { repeat } from 'lit/directives/repeat.js';
 import { Slice } from '@milkdown/prose/model';
 import { Ctx } from '@milkdown/ctx';
 
-import { ResourceManager } from './resource-manager';
-import { ClientMessage } from './client-message';
-import { vscode } from './api';
-import { useUploader } from './uploader';
-import { useListener } from './listener';
+import { ResourceManager } from '../utils/resource-manager';
+import { ClientMessage } from '../utils/client-message';
+import { vscode } from '../utils/api';
+import { useUploader } from '../editor-config/uploader';
+import { useListener } from '../editor-config/listener';
 import { VsImage } from './vs-image';
+import { ListItem } from './list-item';
 
 @customElement('milkdown-editor')
 export class Editor extends ShallowLitElement {
@@ -137,6 +138,13 @@ export class Editor extends ShallowLitElement {
                     }),
                 ),
             )
+            .use(
+                $view(listItemSchema.node, () =>
+                    nodeViewFactory({
+                        component: ListItem,
+                    }),
+                ),
+            )
             .create()
             .then((editor) => {
                 this.editor = editor;
@@ -145,7 +153,7 @@ export class Editor extends ShallowLitElement {
 
     override render() {
         return html`
-            <main class="w-[calc(100vw-300px)]">
+            <main class="w-[calc(100vw-300px)] px-4">
                 <div class="editor prose mx-auto" ${ref(this.editorRef)}></div>
             </main>
             <nav class="w-[270px] fixed top-0 right-0 h-full overflow-y-auto">

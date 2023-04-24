@@ -4,7 +4,7 @@ import { ShallowLitElement } from '@prosemirror-adapter/lit';
 import { customElement } from 'lit/decorators.js';
 
 export { ProsemirrorAdapterProvider } from '@prosemirror-adapter/lit';
-export * from './editor';
+export * from './components/editor';
 
 import 'katex/dist/katex.min.js';
 

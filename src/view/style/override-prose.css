@@ -1,9 +1,47 @@
 .prose :where(code):not(:where([class~="not-prose"] *))::before,
-.prose :where(code):not(:where([class~="not-prose"] *))::after {
+.prose :where(code):not(:where([class~="not-prose"] *))::after,
+.prose :where(blockquote p:first-of-type):not(:where([class~="not-prose"] *))::before,
+.prose :where(blockquote p:first-of-type):not(:where([class~="not-prose"] *))::after {
     content: "";
+}
+
+.prose :where(li):not(:where([class~="not-prose"] *)) {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+}
+
+.prose :where(blockquote):not(:where([class~="not-prose"] *)) {
+    font-style: inherit;
+    font-weight: inherit;
+}
+
+.prose :where(ul ul, ul ol, ol ul, ol ol):not(:where([class~="not-prose"] *)) {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+}
+
+.prose ol,
+.prose ul {
+    list-style: none !important;
+    padding: 0;
 }
 
 .prose, nav {
     font-size: var(--vscode-font-size);
 }
 
+.ProseMirror-separator {
+    margin: 0 !important;
+}
+
+.prose li p {
+    @apply !m-0 !leading-6;
+}
+
+.prose li p + p {
+    @apply !mt-2;
+}
+
+.prose li::after {
+    all: unset !important;
+}
