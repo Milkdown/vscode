@@ -20,5 +20,7 @@ export const useListener = (ctx: Ctx, message: ClientMessage, onUpdate: (ctx: Ct
         })
         .mounted(() => {
             message.ready();
+
+            onUpdate(ctx);
         });
 };
