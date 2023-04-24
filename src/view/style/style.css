@@ -1,0 +1,17 @@
+@import "tailwindcss/base.css";
+@import "tailwindcss/components.css";
+@import "tailwindcss/utilities.css";
+
+@import 'katex/dist/katex.css';
+@import 'prism-themes/themes/prism-nord.css';
+
+@import './override-prose.css';
+@import './font.css';
+
+a:focus {
+    @apply outline-none;
+}
+
+.editor:focus-visible {
+    @apply outline-none;
+}

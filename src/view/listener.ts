@@ -4,15 +4,13 @@ import { vscode } from './api';
 import { Ctx } from '@milkdown/ctx';
 import { ClientMessage } from './client-message';
 
-export const useListener = (ctx: Ctx, message: ClientMessage) => {
+export const useListener = (ctx: Ctx, message: ClientMessage, onUpdate: (ctx: Ctx) => void) => {
     ctx.get(listenerCtx)
         .markdownUpdated((ctx, markdown) => {
             vscode.setState({ text: markdown });
             message.update(markdown);
 
-            // requestAnimationFrame(() => {
-            // renderOutline(ctx);
-            // });
+            onUpdate(ctx);
         })
         .focus(() => {
             message.focus();

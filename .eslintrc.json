@@ -10,5 +10,19 @@
     "rules": {
         "header/header": ["error", "block", " Copyright 2021, Milkdown by Mirone."]
     },
+    "overrides": [
+        {
+            "files": ["*.config.js"],
+            "env": {
+                "node": true
+            },
+            "parserOptions": {
+                "sourceType": "script"
+            },
+            "rules": {
+                "@typescript-eslint/no-var-requires": "off"
+            }
+        }
+    ],
     "ignorePatterns": ["out", "dist", "**/*.d.ts"]
 }

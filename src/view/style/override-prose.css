@@ -1,0 +1,9 @@
+.prose :where(code):not(:where([class~="not-prose"] *))::before,
+.prose :where(code):not(:where([class~="not-prose"] *))::after {
+    content: "";
+}
+
+.prose, nav {
+    font-size: var(--vscode-font-size);
+}
+
