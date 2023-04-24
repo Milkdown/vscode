@@ -10,7 +10,7 @@ import { gfm } from '@milkdown/preset-gfm';
 import { math } from '@milkdown/plugin-math';
 import { history } from '@milkdown/plugin-history';
 import { listener } from '@milkdown/plugin-listener';
-import { emoji } from '@milkdown/plugin-emoji';
+import { emoji, remarkTwemojiPlugin } from '@milkdown/plugin-emoji';
 import { clipboard } from '@milkdown/plugin-clipboard';
 import { prism } from '@milkdown/plugin-prism';
 import { indent } from '@milkdown/plugin-indent';
@@ -124,7 +124,7 @@ export class Editor extends ShallowLitElement {
             .use(math)
             .use(history)
             .use(listener)
-            .use(emoji)
+            .use(emoji.filter((x) => x !== remarkTwemojiPlugin))
             .use(clipboard)
             .use(prism)
             .use(indent)

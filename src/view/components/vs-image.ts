@@ -4,6 +4,7 @@ import { customElement } from 'lit/decorators.js';
 import { html } from 'lit';
 import { until } from 'lit/directives/until.js';
 
+import clsx from 'clsx';
 import { LitNodeView } from '../utils/lit-node-view';
 
 @customElement('milkdown-vs-image')
@@ -17,7 +18,10 @@ export class VsImage extends LitNodeView {
     }
 
     override render() {
-        const image = this.getUrl().then((src) => html`<img class="m-0" src="${src}" />`);
+        const { selected } = this.ctx;
+        const image = this.getUrl().then(
+            (src) => html`<img class=${clsx('m-0', selected && 'ProseMirror-selectednode')} src="${src}" />`,
+        );
 
         return html`${until(image)}`;
     }

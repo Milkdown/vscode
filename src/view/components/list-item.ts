@@ -9,20 +9,25 @@ import { LitNodeView } from '../utils/lit-node-view';
 
 @customElement('milkdown-list-item')
 export class ListItem extends LitNodeView {
-    get type() {
-        return this.node.attrs.listType;
-    }
-
-    get label() {
-        return this.node.attrs.label;
+    private onChange() {
+        const { checked } = this.node.attrs;
+        this.ctx.setAttrs({ checked: !checked });
     }
 
     override render() {
         const { contentRef, selected } = this.ctx;
 
+        console.log(this.node);
+        if (this.attrs.checked == null) {
+            return html`<li class=${clsx('flex flex-colum items-start gap-2', selected && 'ProseMirror-selectednode')}>
+                <span>${this.attrs.label}</span>
+                <div class="min-w-0 flex-1" ${ref(contentRef)}></div>
+            </li>`;
+        }
+
         return html`<li class=${clsx('flex flex-colum items-start gap-2', selected && 'ProseMirror-selectednode')}>
-            <span>${this.label}</span>
-            <div class="min-w-0" ${ref(contentRef)}></div>
+            <input type="checkbox" class="h-6" ?checked=${this.attrs.checked} @change="${this.onChange}" />
+            <div class="min-w-0 flex-1" ${ref(contentRef)}></div>
         </li>`;
     }
 }

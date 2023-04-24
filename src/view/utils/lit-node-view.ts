@@ -3,8 +3,6 @@
 import { ShallowLitElement, useNodeViewContext } from '@prosemirror-adapter/lit';
 import { ResourceManager } from './resource-manager';
 import { ClientMessage } from './client-message';
-import { html } from 'lit/development';
-import { until } from 'lit/development/directives/until';
 
 export class LitNodeView extends ShallowLitElement {
     nodeViewContext = useNodeViewContext(this);
@@ -22,5 +20,10 @@ export class LitNodeView extends ShallowLitElement {
     protected get node() {
         const { node } = this.ctx;
         return node;
+    }
+
+    protected get attrs() {
+        const { attrs } = this.node;
+        return attrs;
     }
 }
