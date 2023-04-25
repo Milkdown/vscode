@@ -29,6 +29,7 @@ import { vscode } from '../utils/api';
 import { useUploader } from '../editor-config/uploader';
 import { useListener } from '../editor-config/listener';
 import { applyPlugins } from '../editor-config/apply-plugins';
+import { useCursor } from '../editor-config/cursor';
 import { VsImage } from './vs-image';
 import { ListItem } from './list-item';
 
@@ -136,13 +137,11 @@ export class Editor extends ShallowLitElement {
             ctx.set(rootCtx, element);
             const state = vscode.getState();
             ctx.set(defaultValueCtx, state?.text ?? '');
-            ctx.set(dropCursorConfig.key, {
-                color: 'var(--vscode-editorCursor-foreground)',
-            });
-            useUploader(ctx, this.message);
-            useListener(ctx, this.message, this.onUpdate);
         });
 
+        useCursor(editor);
+        useUploader(editor, this.message);
+        useListener(editor, this.message, this.onUpdate);
         applyPlugins(editor);
         this.applyLitViews(editor);
 
