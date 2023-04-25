@@ -19,7 +19,8 @@ export class VsImage extends LitNodeView {
 
     private renderImage = (src: string) => {
         const { selected } = this.ctx;
-        return html` <img class=${clsx('m-0', selected && 'ProseMirror-selectednode')} src="${src}" /> `;
+
+        return html`<img class=${clsx('m-0 text-[0] inline', selected && 'ProseMirror-selectednode')} src="${src}" />`;
     };
 
     override render() {

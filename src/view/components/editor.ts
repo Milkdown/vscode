@@ -14,7 +14,7 @@ import { emoji, remarkTwemojiPlugin } from '@milkdown/plugin-emoji';
 import { clipboard } from '@milkdown/plugin-clipboard';
 import { prism } from '@milkdown/plugin-prism';
 import { indent } from '@milkdown/plugin-indent';
-import { cursor } from '@milkdown/plugin-cursor';
+import { cursor, dropCursorConfig } from '@milkdown/plugin-cursor';
 import { trailing } from '@milkdown/plugin-trailing';
 import { upload } from '@milkdown/plugin-upload';
 import { $view, outline } from '@milkdown/utils';
@@ -22,11 +22,13 @@ import { repeat } from 'lit/directives/repeat.js';
 import { Slice } from '@milkdown/prose/model';
 import { Ctx } from '@milkdown/ctx';
 
+import clsx from 'clsx';
 import { ResourceManager } from '../utils/resource-manager';
 import { ClientMessage } from '../utils/client-message';
 import { vscode } from '../utils/api';
 import { useUploader } from '../editor-config/uploader';
 import { useListener } from '../editor-config/listener';
+import { applyPlugins } from '../editor-config/apply-plugins';
 import { VsImage } from './vs-image';
 import { ListItem } from './list-item';
 
@@ -105,32 +107,9 @@ export class Editor extends ShallowLitElement {
         });
     };
 
-    private editorRef: RefOrCallback = (element) => {
-        if (!element || element.firstChild || !(element instanceof HTMLElement)) return;
-
+    private applyLitViews = (editor: Milkdown) => {
         const nodeViewFactory = this.nodeView;
-
-        Milkdown.make()
-            .config((ctx) => {
-                ctx.set(rootCtx, element);
-                const state = vscode.getState();
-                ctx.set(defaultValueCtx, state?.text ?? '');
-
-                useUploader(ctx, this.message);
-                useListener(ctx, this.message, this.onUpdate);
-            })
-            .use(commonmark)
-            .use(gfm)
-            .use(math)
-            .use(history)
-            .use(listener)
-            .use(emoji.filter((x) => x !== remarkTwemojiPlugin))
-            .use(clipboard)
-            .use(prism)
-            .use(indent)
-            .use(cursor)
-            .use(trailing)
-            .use(upload)
+        editor
             .use(
                 $view(imageSchema.node, () =>
                     nodeViewFactory({
@@ -144,11 +123,32 @@ export class Editor extends ShallowLitElement {
                         component: ListItem,
                     }),
                 ),
-            )
-            .create()
-            .then((editor) => {
-                this.editor = editor;
+            );
+    };
+
+    private editorRef: RefOrCallback = (element) => {
+        if (!element || element.firstChild || !(element instanceof HTMLElement)) return;
+
+        const editor = Milkdown.make();
+        this.editor = editor;
+
+        editor.config((ctx) => {
+            ctx.set(rootCtx, element);
+            const state = vscode.getState();
+            ctx.set(defaultValueCtx, state?.text ?? '');
+            ctx.set(dropCursorConfig.key, {
+                color: 'var(--vscode-editorCursor-foreground)',
             });
+            useUploader(ctx, this.message);
+            useListener(ctx, this.message, this.onUpdate);
+        });
+
+        applyPlugins(editor);
+        this.applyLitViews(editor);
+
+        editor.create().then((editor) => {
+            this.editor = editor;
+        });
     };
 
     override render() {
