@@ -5,9 +5,12 @@
 @import 'katex/dist/katex.css';
 @import 'prism-themes/themes/prism-nord.css';
 @import '@milkdown/prose/lib/style/prosemirror.css';
+@import 'tippy.js/dist/tippy.css';
+@import 'tippy.js/dist/svg-arrow.css';
 
 @import './override-prose.css';
 @import './font.css';
+@import './tippy.css';
 
 body {
     padding: 0;
@@ -22,4 +25,10 @@ textarea:focus {
 
 .editor:focus-visible {
     @apply outline-none;
+}
+
+.image-container,
+.image-container > node-view-dom-provider,
+.image-container >  node-view-dom-provider > milkdown-vs-image {
+    display: inline-flex;
 }

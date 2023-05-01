@@ -12,7 +12,7 @@
             },
             "problemMatcher": [
                 {
-                    "base": "$ts-webpack-watch",
+                    "base": "$ts-watch",
                     "background": {
                         "activeOnStart": true,
                         "beginsPattern": "Build start",
