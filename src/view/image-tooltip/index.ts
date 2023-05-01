@@ -64,6 +64,9 @@ class ImageTooltip extends ShallowLitElement {
                 appendTo: () => {
                     return this.renderRoot as HTMLElement;
                 },
+                onHide: () => {
+                    this.tab = 'link';
+                },
             },
             shouldShow: (view) => {
                 const { selection } = view.state;
@@ -104,7 +107,7 @@ class ImageTooltip extends ShallowLitElement {
         e.preventDefault();
         e.stopPropagation();
 
-        const value = input.value;
+        const value = input.value ?? null;
         const attr = this.tab === 'link' ? 'src' : 'title';
         const { view } = this.context;
         const { state, dispatch } = view;
@@ -159,14 +162,14 @@ class ImageTooltip extends ShallowLitElement {
                                 ? html`<input
                                       class="bg-inherit !text-xs w-52"
                                       type="text"
-                                      .value=${this.src}
+                                      .value=${this.src ?? ''}
                                       @keydown=${this.keyboardConfirm}
                                       placeholder="Image URL"
                                   />`
                                 : html`<input
                                       class="bg-inherit !text-xs w-52"
                                       type="text"
-                                      .value=${this.displayTitle}
+                                      .value=${this.displayTitle ?? ''}
                                       @keydown=${this.keyboardConfirm}
                                       placeholder="Image Title"
                                   />`}
