@@ -3,10 +3,10 @@ import { html } from 'lit';
 import { ShallowLitElement } from '@prosemirror-adapter/lit';
 import { customElement } from 'lit/decorators.js';
 
+import 'katex/dist/katex.min.js';
+
 export { ProsemirrorAdapterProvider } from '@prosemirror-adapter/lit';
 export * from './components/editor';
-
-import 'katex/dist/katex.min.js';
 
 @customElement('milkdown-app')
 export class MilkdownApp extends ShallowLitElement {

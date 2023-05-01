@@ -6,9 +6,10 @@ import { PluginViewFactory, ShallowLitElement, usePluginViewContext } from '@pro
 import { NodeSelection } from '@milkdown/prose/state';
 import { ref, RefOrCallback } from 'lit/directives/ref.js';
 import { html, nothing } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 import { roundArrow } from 'tippy.js';
 import { imageSchema } from '@milkdown/preset-commonmark';
+import clsx from 'clsx';
 
 const imageTooltip = tooltipFactory('image');
 
@@ -16,6 +17,9 @@ const imageTooltip = tooltipFactory('image');
 class ImageTooltip extends ShallowLitElement {
     provider: TooltipProvider | null = null;
     pluginViewContext = usePluginViewContext(this);
+
+    @state()
+    protected tab: 'link' | 'title' = 'link';
 
     get context() {
         const ctx = this.pluginViewContext.value;
@@ -57,18 +61,17 @@ class ImageTooltip extends ShallowLitElement {
             tippyOptions: {
                 theme: 'vsc',
                 arrow: roundArrow,
+                appendTo: () => {
+                    return this.renderRoot as HTMLElement;
+                },
             },
             shouldShow: (view) => {
                 const { selection } = view.state;
                 const { empty, from } = selection;
 
-                const isTooltipChildren = this.provider?.element.contains(document.activeElement);
-
-                const notHasFocus = !view.hasFocus() && !isTooltipChildren;
-
                 const isReadonly = !view.editable;
 
-                if (notHasFocus || empty || isReadonly) {
+                if (empty || isReadonly) {
                     return false;
                 }
 
@@ -82,11 +85,110 @@ class ImageTooltip extends ShallowLitElement {
         this.provider?.update(view, prevState);
     }
 
+    protected onLinkTab(e: Event) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.tab = 'link';
+    }
+
+    protected onTitleTab(e: Event) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.tab = 'title';
+    }
+
+    protected onConfirm(e: Event) {
+        const input = this.renderRoot.querySelector('input');
+        if (!input) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        const value = input.value;
+        const attr = this.tab === 'link' ? 'src' : 'title';
+        const { view } = this.context;
+        const { state, dispatch } = view;
+
+        const { selection } = state;
+        let { tr } = state;
+
+        tr = tr.setNodeMarkup(selection.from, undefined, { ...this.attrs, [attr]: value });
+        tr = tr.setSelection(NodeSelection.create(tr.doc, selection.from));
+
+        dispatch(tr);
+    }
+
+    protected keyboardConfirm(e: KeyboardEvent) {
+        if (e.key === 'Enter') {
+            this.onConfirm(e);
+        }
+    }
+
     override render() {
+        const buttonClass = 'rounded-t py-1 px-2 cursor-pointer';
+        const activeButtonClass = 'bg-[var(--vscode-button-background)] text-[var(--vscode-button-foreground)]';
+        const inactiveButtonClass = 'hover:bg-[var(--vscode-editor-background)]';
         return html`
             <div class="hidden">
                 <div ${ref(this.ref)}>
-                    <div>tooltip | ${this.src || nothing}</div>
+                    <div>
+                        <div class="flex divide-x divide-[var(--vscode-button-separator)]">
+                            <div
+                                class="${clsx(
+                                    buttonClass,
+                                    this.tab === 'link' ? activeButtonClass : inactiveButtonClass,
+                                )}"
+                                @mousedown=${this.onLinkTab}
+                            >
+                                Link
+                            </div>
+                            <div
+                                class="${clsx(
+                                    buttonClass,
+                                    this.tab === 'title' ? activeButtonClass : inactiveButtonClass,
+                                )}"
+                                @mousedown=${this.onTitleTab}
+                            >
+                                Title
+                            </div>
+                        </div>
+                        <div
+                            class="flex bg-[var(--vscode-editor-background)] border rounded-b border-[var(--vscode-button-background)] py-1 px-2"
+                        >
+                            ${this.tab === 'link'
+                                ? html`<input
+                                      class="bg-inherit !text-xs w-52"
+                                      type="text"
+                                      .value=${this.src}
+                                      @keydown=${this.keyboardConfirm}
+                                      placeholder="Image URL"
+                                  />`
+                                : html`<input
+                                      class="bg-inherit !text-xs w-52"
+                                      type="text"
+                                      .value=${this.displayTitle}
+                                      @keydown=${this.keyboardConfirm}
+                                      placeholder="Image Title"
+                                  />`}
+                            <div
+                                class="cursor-pointer rounded-full transition-colors hover:bg-[var(--vscode-notifications-background)] p-1"
+                                @mousedown=${this.onConfirm}
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                    class="w-5 h-5"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                        clip-rule="evenodd"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
