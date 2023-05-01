@@ -19,7 +19,7 @@ class ImageTooltip extends ShallowLitElement {
     pluginViewContext = usePluginViewContext(this);
 
     @state()
-    protected tab: 'link' | 'title' = 'link';
+    protected tab: 'link' | 'alt' | 'title' = 'link';
 
     get context() {
         const ctx = this.pluginViewContext.value;
@@ -94,6 +94,12 @@ class ImageTooltip extends ShallowLitElement {
         this.tab = 'link';
     }
 
+    protected onAltTab(e: Event) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.tab = 'alt';
+    }
+
     protected onTitleTab(e: Event) {
         e.preventDefault();
         e.stopPropagation();
@@ -108,7 +114,7 @@ class ImageTooltip extends ShallowLitElement {
         e.stopPropagation();
 
         const value = input.value ?? null;
-        const attr = this.tab === 'link' ? 'src' : 'title';
+        const attr = this.tab === 'link' ? 'src' : this.tab === 'alt' ? 'alt' : 'title';
         const { view } = this.context;
         const { state, dispatch } = view;
 
@@ -148,6 +154,15 @@ class ImageTooltip extends ShallowLitElement {
                             <div
                                 class="${clsx(
                                     buttonClass,
+                                    this.tab === 'alt' ? activeButtonClass : inactiveButtonClass,
+                                )}"
+                                @mousedown=${this.onAltTab}
+                            >
+                                Alt
+                            </div>
+                            <div
+                                class="${clsx(
+                                    buttonClass,
                                     this.tab === 'title' ? activeButtonClass : inactiveButtonClass,
                                 )}"
                                 @mousedown=${this.onTitleTab}
@@ -165,6 +180,14 @@ class ImageTooltip extends ShallowLitElement {
                                       .value=${this.src ?? ''}
                                       @keydown=${this.keyboardConfirm}
                                       placeholder="Image URL"
+                                  />`
+                                : this.tab === 'alt'
+                                ? html`<input
+                                      class="bg-inherit !text-xs w-52"
+                                      type="text"
+                                      .value=${this.alt ?? ''}
+                                      @keydown=${this.keyboardConfirm}
+                                      placeholder="Image Alt"
                                   />`
                                 : html`<input
                                       class="bg-inherit !text-xs w-52"
