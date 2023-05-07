@@ -6,7 +6,6 @@ import { math } from '@milkdown/plugin-math';
 import { history } from '@milkdown/plugin-history';
 import { emoji, remarkTwemojiPlugin } from '@milkdown/plugin-emoji';
 import { clipboard } from '@milkdown/plugin-clipboard';
-import { prism } from '@milkdown/plugin-prism';
 import { indent } from '@milkdown/plugin-indent';
 import { trailing } from '@milkdown/plugin-trailing';
 import { upload } from '@milkdown/plugin-upload';
@@ -18,7 +17,6 @@ export const applyPlugins = (editor: Editor) => {
         .use(math)
         .use(history)
         .use(clipboard)
-        .use(prism)
         .use(indent)
         .use(trailing)
         .use(upload)

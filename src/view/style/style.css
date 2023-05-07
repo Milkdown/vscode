@@ -3,7 +3,6 @@
 @import "tailwindcss/utilities.css";
 
 @import 'katex/dist/katex.css';
-@import 'prism-themes/themes/prism-nord.css';
 @import '@milkdown/prose/lib/style/prosemirror.css';
 @import 'tippy.js/dist/tippy.css';
 @import 'tippy.js/dist/svg-arrow.css';

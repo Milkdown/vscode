@@ -134,7 +134,8 @@ class ImageTooltip extends ShallowLitElement {
     }
 
     override render() {
-        const buttonClass = 'rounded-t py-1 px-2 cursor-pointer';
+        const buttonClass = (tab: typeof this.tab) =>
+            clsx('rounded-t py-1 px-2 cursor-pointer', this.tab === tab ? activeButtonClass : inactiveButtonClass);
         const activeButtonClass = 'bg-[var(--vscode-button-background)] text-[var(--vscode-button-foreground)]';
         const inactiveButtonClass = 'hover:bg-[var(--vscode-editor-background)]';
         return html`
@@ -142,33 +143,9 @@ class ImageTooltip extends ShallowLitElement {
                 <div ${ref(this.ref)}>
                     <div>
                         <div class="flex divide-x divide-[var(--vscode-button-separator)]">
-                            <div
-                                class="${clsx(
-                                    buttonClass,
-                                    this.tab === 'link' ? activeButtonClass : inactiveButtonClass,
-                                )}"
-                                @mousedown=${this.onLinkTab}
-                            >
-                                Link
-                            </div>
-                            <div
-                                class="${clsx(
-                                    buttonClass,
-                                    this.tab === 'alt' ? activeButtonClass : inactiveButtonClass,
-                                )}"
-                                @mousedown=${this.onAltTab}
-                            >
-                                Alt
-                            </div>
-                            <div
-                                class="${clsx(
-                                    buttonClass,
-                                    this.tab === 'title' ? activeButtonClass : inactiveButtonClass,
-                                )}"
-                                @mousedown=${this.onTitleTab}
-                            >
-                                Title
-                            </div>
+                            <div class=${buttonClass('link')} @mousedown=${this.onLinkTab}>Link</div>
+                            <div class=${buttonClass('alt')} @mousedown=${this.onAltTab}>Alt</div>
+                            <div class=${buttonClass('title')} @mousedown=${this.onTitleTab}>Title</div>
                         </div>
                         <div
                             class="flex bg-[var(--vscode-editor-background)] border rounded-b border-[var(--vscode-button-background)] py-1 px-2"

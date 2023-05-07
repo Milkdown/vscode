@@ -12,7 +12,7 @@
             },
             "problemMatcher": [
                 {
-                    "base": "$ts-watch",
+                    "base": "$tsc-watch",
                     "background": {
                         "activeOnStart": true,
                         "beginsPattern": "Build start",

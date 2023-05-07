@@ -9,7 +9,7 @@ export class LitNodeView extends ShallowLitElement {
     resource = ResourceManager.Instance;
     message = ClientMessage.Instance;
 
-    protected get ctx() {
+    get ctx() {
         const ctx = this.nodeViewContext.value;
         if (!ctx) {
             throw new Error();
@@ -17,12 +17,22 @@ export class LitNodeView extends ShallowLitElement {
         return ctx;
     }
 
-    protected get node() {
+    get node() {
         const { node } = this.ctx;
         return node;
     }
 
-    protected get attrs() {
+    get getPos() {
+        const { getPos } = this.ctx;
+        return getPos;
+    }
+
+    get view() {
+        const { view } = this.ctx;
+        return view;
+    }
+
+    get attrs() {
         const { attrs } = this.node;
         return attrs;
     }

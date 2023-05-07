@@ -2,10 +2,10 @@
 import { html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import type { RefOrCallback } from 'lit/directives/ref.js';
-import { ShallowLitElement, useNodeViewFactory, usePluginViewFactory } from '@prosemirror-adapter/lit';
+import { LitNodeView, ShallowLitElement, useNodeViewFactory, usePluginViewFactory } from '@prosemirror-adapter/lit';
 import { ref } from 'lit/directives/ref.js';
 import { defaultValueCtx, Editor as Milkdown, editorViewCtx, parserCtx, rootCtx } from '@milkdown/core';
-import { commonmark, imageSchema, listItemSchema } from '@milkdown/preset-commonmark';
+import { codeBlockSchema, commonmark, imageSchema, listItemSchema } from '@milkdown/preset-commonmark';
 import { gfm } from '@milkdown/preset-gfm';
 import { math } from '@milkdown/plugin-math';
 import { history } from '@milkdown/plugin-history';
@@ -33,6 +33,7 @@ import { useCursor } from '../editor-config/cursor';
 import { useImageTooltip } from '../image-tooltip';
 import { VsImage } from './vs-image';
 import { ListItem } from './list-item';
+import { CodeBlock } from './code-block';
 
 @customElement('milkdown-editor')
 export class Editor extends ShallowLitElement {
@@ -140,7 +141,8 @@ export class Editor extends ShallowLitElement {
                         component: ListItem,
                     }),
                 ),
-            );
+            )
+            .use($view(codeBlockSchema.node, () => (node, view, getPos) => new CodeBlock(node, view, getPos)));
     };
 
     private editorRef: RefOrCallback = (element) => {
