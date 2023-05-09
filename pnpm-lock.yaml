@@ -77,8 +77,8 @@ devDependencies:
     specifier: ^7.2.1
     version: 7.2.1(@milkdown/core@7.2.1)(@milkdown/ctx@7.2.1)(@milkdown/prose@7.2.1)(@milkdown/transformer@7.2.1)
   '@prosemirror-adapter/lit':
-    specifier: ^0.2.4
-    version: 0.2.4(@lit-labs/context@0.3.0)(lit@2.7.2)
+    specifier: ^0.2.5
+    version: 0.2.5(@lit-labs/context@0.3.0)(lit@2.7.2)
   '@tailwindcss/typography':
     specifier: ^0.5.9
     version: 0.5.9(tailwindcss@3.3.1)
@@ -1272,7 +1272,7 @@ packages:
       '@milkdown/exception': 7.2.1
       '@milkdown/prose': 7.2.1
       '@milkdown/transformer': 7.2.1(@milkdown/prose@7.2.1)
-      nanoid: 4.0.0
+      nanoid: 4.0.2
       tslib: 2.5.0
     dev: true
 
@@ -1301,22 +1301,22 @@ packages:
     resolution: {integrity: sha512-Cr4OjIkipTtcXKjAsm8agyleBuDHvxzeBoa1v543lbv1YaIwQjESsVcmjiWiPEbC1FIeHOG/Op9kdCmAmiS3Kw==}
     dev: true
 
-  /@prosemirror-adapter/core@0.2.4:
-    resolution: {integrity: sha512-eGnTK7PDTZlhPGUAA7l6m7Nc8EsdQBhOGgFk07zxuETSCk0F5A3/RtW8rcL5F4mcrVXqa+Z7sc/ovqL6tQglvA==}
+  /@prosemirror-adapter/core@0.2.5:
+    resolution: {integrity: sha512-oeSamDlVr4WMhRlWW6BQp6sekcYa5yvndzwGXTg6Me1e0KMPMAdwOIoTyChqhj4HCTy3SZKu1cSSaYAY9eptKQ==}
     dependencies:
       tslib: 2.5.0
     dev: true
 
-  /@prosemirror-adapter/lit@0.2.4(@lit-labs/context@0.3.0)(lit@2.7.2):
-    resolution: {integrity: sha512-xVaQtZLxVGcc2MG8+ugUXSYKbvRDuPUoqbm+2SKd09Gnhv4zZxpd6gtqxXfHzlNmJmPBE40E54UZhlQIW89d4w==}
+  /@prosemirror-adapter/lit@0.2.5(@lit-labs/context@0.3.0)(lit@2.7.2):
+    resolution: {integrity: sha512-8w1P/8fIbPUNkaP5gEVCkQPbO6MWjKM+eG1meXoHB4SIdok3osPa/okdMkzT2gQ/k39u6yIMsurGTdkiRX6Kog==}
     peerDependencies:
       '@lit-labs/context': ^0.3.0
       lit: ^2.6.1
     dependencies:
       '@lit-labs/context': 0.3.0
-      '@prosemirror-adapter/core': 0.2.4
+      '@prosemirror-adapter/core': 0.2.5
       lit: 2.7.2
-      nanoid: 4.0.0
+      nanoid: 4.0.2
       tslib: 2.5.0
     dev: true
 
@@ -3003,12 +3003,6 @@ packages:
       has: 1.0.3
     dev: true
 
-  /is-core-module@2.9.0:
-    resolution: {integrity: sha512-+5FPy5PnwmO3lvfMb0AsoPaBG+5KHUI0wYFXOtYPnVVVspTFUuMZNfNaNVRt3FZadstu2c8x23vykRW/NBoU6A==}
-    dependencies:
-      has: 1.0.3
-    dev: true
-
   /is-date-object@1.0.5:
     resolution: {integrity: sha512-9YQaSxsAiSwcvS33MBk3wTCVnWK+HhF8VZR2jRxehM16QcVOdHqPn4VPHmRK4lSr38n9JriurInLcP90xsYNfQ==}
     engines: {node: '>= 0.4'}
@@ -3782,8 +3776,8 @@ packages:
     hasBin: true
     dev: true
 
-  /nanoid@4.0.0:
-    resolution: {integrity: sha512-IgBP8piMxe/gf73RTQx7hmnhwz0aaEXYakvqZyE302IXW3HyVNhdNGC+O2MwMAVhLEnvXlvKtGbtJf6wvHihCg==}
+  /nanoid@4.0.2:
+    resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
     engines: {node: ^14 || ^16 || >=18}
     hasBin: true
     dev: true
@@ -4388,7 +4382,7 @@ packages:
     resolution: {integrity: sha512-nBpuuYuY5jFsli/JIs1oldw6fOQCBioohqWZg/2hiaOybXOft4lonv85uDOKXdf8rhyK159cxU5cDcK/NKk8zw==}
     hasBin: true
     dependencies:
-      is-core-module: 2.9.0
+      is-core-module: 2.12.0
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
     dev: true

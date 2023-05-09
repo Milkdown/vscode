@@ -241,7 +241,7 @@
         "@milkdown/prose": "^7.2.1",
         "@milkdown/transformer": "^7.2.1",
         "@milkdown/utils": "^7.2.1",
-        "@prosemirror-adapter/lit": "^0.2.4",
+        "@prosemirror-adapter/lit": "^0.2.5",
         "@tailwindcss/typography": "^0.5.9",
         "@types/glob": "^8.0.0",
         "@types/node": "18.x",
