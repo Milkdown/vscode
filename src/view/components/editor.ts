@@ -18,9 +18,9 @@ import { useListener } from '../editor-config/listener';
 import { applyPlugins } from '../editor-config/apply-plugins';
 import { useCursor } from '../editor-config/cursor';
 import { useImageTooltip } from '../image-tooltip';
+import { CodeBlock } from '../code-block';
 import { VsImage } from './vs-image';
 import { ListItem } from './list-item';
-import { CodeBlock } from './code-block';
 
 @customElement('milkdown-editor')
 export class Editor extends ShallowLitElement {
