@@ -1,6 +1,5 @@
 /* Copyright 2021, Milkdown by Mirone.*/
 import {
-    drawSelection,
     EditorView as CodeMirror,
     KeyBinding,
     keymap as cmKeymap,
@@ -18,7 +17,7 @@ import { redo, undo } from '@milkdown/prose/history';
 import { EditorView, NodeView } from '@milkdown/prose/view';
 import { nord } from './nord';
 
-const cmExtensions = [nord, drawSelection(), javascript(), lineNumbers(), gutter({ class: 'cm-gutter' })];
+const cmExtensions = [nord, javascript(), lineNumbers(), gutter({ class: 'cm-gutter' })];
 
 export class CodeBlock implements NodeView {
     dom: HTMLElement;
