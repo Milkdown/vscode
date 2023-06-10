@@ -10,6 +10,7 @@
 @import './override-prose.css';
 @import './font.css';
 @import './tippy.css';
+@import './codemirror.css';
 
 body {
     padding: 0;

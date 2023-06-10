@@ -1,0 +1,7 @@
+.cm-focused {
+    outline: none !important;
+}
+
+.cm-editor {
+    @apply my-1;
+}

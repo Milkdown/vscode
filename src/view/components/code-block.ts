@@ -1,15 +1,24 @@
 /* Copyright 2021, Milkdown by Mirone.*/
-import { EditorView as CodeMirror, keymap as cmKeymap, drawSelection, KeyBinding, ViewUpdate } from '@codemirror/view';
-// import { javascript } from '@codemirror/lang-javascript';
+import {
+    drawSelection,
+    EditorView as CodeMirror,
+    KeyBinding,
+    keymap as cmKeymap,
+    ViewUpdate,
+    lineNumbers,
+    gutter,
+} from '@codemirror/view';
+import { javascript } from '@codemirror/lang-javascript';
 import { defaultKeymap } from '@codemirror/commands';
-import { syntaxHighlighting, defaultHighlightStyle } from '@codemirror/language';
-import { Selection } from '@milkdown/prose/state';
-import { SelectionRange, Line } from '@codemirror/state';
+import { Selection, TextSelection } from '@milkdown/prose/state';
+import { Line, SelectionRange } from '@codemirror/state';
 import { Node } from '@milkdown/prose/model';
 import { exitCode } from '@milkdown/prose/commands';
-import { undo, redo } from '@milkdown/prose/history';
-import { TextSelection } from '@milkdown/prose/state';
+import { redo, undo } from '@milkdown/prose/history';
 import { EditorView, NodeView } from '@milkdown/prose/view';
+import { nord } from './nord';
+
+const cmExtensions = [nord, drawSelection(), javascript(), lineNumbers(), gutter({ class: 'cm-gutter' })];
 
 export class CodeBlock implements NodeView {
     dom: HTMLElement;
@@ -21,10 +30,8 @@ export class CodeBlock implements NodeView {
         this.cm = new CodeMirror({
             doc: this.node.textContent,
             extensions: [
+                ...cmExtensions,
                 cmKeymap.of([...this.codeMirrorKeymap(), ...defaultKeymap]),
-                drawSelection(),
-                syntaxHighlighting(defaultHighlightStyle),
-                // javascript(),
                 CodeMirror.updateListener.of((update) => this.forwardUpdate(update)),
             ],
         });
