@@ -158,7 +158,7 @@ export class Editor extends ShallowLitElement {
 
     override render() {
         return html`
-            <main class="w-[calc(100vw-300px)] px-4">
+            <main class="w-[calc(100vw-300px)] px-8">
                 <div class="editor prose mx-auto" ${ref(this.editorRef)}></div>
             </main>
             <nav class="w-[270px] fixed top-0 right-0 h-full overflow-y-auto">
