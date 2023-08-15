@@ -27,8 +27,8 @@ devDependencies:
     specifier: ^1.1.6
     version: 1.1.6
   '@lit-labs/context':
-    specifier: ^0.3.0
-    version: 0.3.0
+    specifier: ^0.4.0
+    version: 0.4.0
   '@milkdown/core':
     specifier: ^7.2.3
     version: 7.2.3(@milkdown/ctx@7.2.3)(@milkdown/prose@7.2.3)(@milkdown/transformer@7.2.3)
@@ -88,7 +88,7 @@ devDependencies:
     version: 7.2.3(@milkdown/core@7.2.3)(@milkdown/ctx@7.2.3)(@milkdown/prose@7.2.3)(@milkdown/transformer@7.2.3)
   '@prosemirror-adapter/lit':
     specifier: ^0.2.5
-    version: 0.2.5(@lit-labs/context@0.3.0)(lit@2.7.2)
+    version: 0.2.5(@lit-labs/context@0.4.0)(lit@2.7.2)
   '@tailwindcss/typography':
     specifier: ^0.5.9
     version: 0.5.9(tailwindcss@3.3.1)
@@ -1165,8 +1165,8 @@ packages:
       '@lezer/common': 1.0.2
     dev: true
 
-  /@lit-labs/context@0.3.0:
-    resolution: {integrity: sha512-6cHfQWgU935I/JVrcFY9mkCZBieX0FhnBJhd+/XzqgFLxqmStmReYDkAMr86lR1twdB6siftTHaH1KJ1o/bJXA==}
+  /@lit-labs/context@0.4.0:
+    resolution: {integrity: sha512-NENAYRxRUgdS1rVVrahOCzVs6JzWdREtw8GjgTVpFBy20oqZGC5tazFYpvE5m5BkKMAAQnej9hAGROb553c85g==}
     dependencies:
       '@lit/reactive-element': 1.6.1
       lit: 2.7.2
@@ -1576,13 +1576,13 @@ packages:
       tslib: 2.5.0
     dev: true
 
-  /@prosemirror-adapter/lit@0.2.5(@lit-labs/context@0.3.0)(lit@2.7.2):
+  /@prosemirror-adapter/lit@0.2.5(@lit-labs/context@0.4.0)(lit@2.7.2):
     resolution: {integrity: sha512-8w1P/8fIbPUNkaP5gEVCkQPbO6MWjKM+eG1meXoHB4SIdok3osPa/okdMkzT2gQ/k39u6yIMsurGTdkiRX6Kog==}
     peerDependencies:
       '@lit-labs/context': ^0.3.0
       lit: ^2.6.1
     dependencies:
-      '@lit-labs/context': 0.3.0
+      '@lit-labs/context': 0.4.0
       '@prosemirror-adapter/core': 0.2.5
       lit: 2.7.2
       nanoid: 4.0.2

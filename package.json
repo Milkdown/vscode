@@ -223,7 +223,7 @@
         "@codemirror/state": "^6.2.0",
         "@codemirror/view": "^6.10.1",
         "@lezer/highlight": "^1.1.6",
-        "@lit-labs/context": "^0.3.0",
+        "@lit-labs/context": "^0.4.0",
         "@milkdown/core": "^7.2.3",
         "@milkdown/ctx": "^7.2.3",
         "@milkdown/plugin-clipboard": "^7.2.3",
