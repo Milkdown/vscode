@@ -246,7 +246,7 @@
         "@prosemirror-adapter/lit": "^0.2.5",
         "@tailwindcss/typography": "^0.5.9",
         "@types/glob": "^8.0.0",
-        "@types/node": "18.x",
+        "@types/node": "20.x",
         "@types/vscode": "^1.59.0",
         "@typescript-eslint/eslint-plugin": "^6.0.0",
         "@typescript-eslint/parser": "^6.0.0",
