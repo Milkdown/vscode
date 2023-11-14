@@ -6,7 +6,7 @@
     "description": "Edit markdown in a WYSIWYG way, powered by milkdown.",
     "version": "0.0.15",
     "engines": {
-        "vscode": "^1.59.0"
+        "vscode": "^2023.0.0"
     },
     "repository": {
         "type": "git",
