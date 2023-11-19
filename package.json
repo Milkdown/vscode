@@ -271,7 +271,7 @@
         "tailwindcss": "^3.3.1",
         "tippy.js": "^6.3.7",
         "ts-loader": "^9.2.2",
-        "tsup": "^7.0.0",
+        "tsup": "^8.0.0",
         "typescript": "^5.0.0"
     }
 }
