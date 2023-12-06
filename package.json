@@ -264,7 +264,7 @@
         "katex": "^0.16.0",
         "lit": "^3.0.0",
         "postcss": "^8.4.23",
-        "postcss-cli": "^10.0.0",
+        "postcss-cli": "^11.0.0",
         "postcss-import": "^15.0.0",
         "prettier": "^3.0.0",
         "prism-themes": "^1.9.0",
