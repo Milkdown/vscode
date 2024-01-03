@@ -153,8 +153,8 @@ devDependencies:
     specifier: ^11.0.0
     version: 11.0.0(postcss@8.4.23)
   postcss-import:
-    specifier: ^15.0.0
-    version: 15.0.0(postcss@8.4.23)
+    specifier: ^16.0.0
+    version: 16.0.0(postcss@8.4.23)
   prettier:
     specifier: ^3.0.0
     version: 3.0.0
@@ -4652,9 +4652,9 @@ packages:
       resolve: 1.22.1
     dev: true
 
-  /postcss-import@15.0.0(postcss@8.4.23):
-    resolution: {integrity: sha512-Y20shPQ07RitgBGv2zvkEAu9bqvrD77C9axhj/aA1BQj4czape2MdClCExvB27EwYEJdGgKZBpKanb0t1rK2Kg==}
-    engines: {node: '>=14.0.0'}
+  /postcss-import@16.0.0(postcss@8.4.23):
+    resolution: {integrity: sha512-e77lhVvrD1I2y7dYmBv0k9ULTdArgEYZt97T4w6sFIU5uxIHvDFQlKgUUyY7v7Barj0Yf/zm5A4OquZN7jKm5Q==}
+    engines: {node: '>=18.0.0'}
     peerDependencies:
       postcss: ^8.0.0
     dependencies:
