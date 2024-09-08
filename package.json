@@ -252,7 +252,7 @@
         "@typescript-eslint/parser": "^8.0.0",
         "autoprefixer": "^10.4.14",
         "clsx": "^2.0.0",
-        "concurrently": "^8.0.0",
+        "concurrently": "^9.0.0",
         "esbuild": "^0.23.0",
         "eslint": "^9.0.0",
         "eslint-config-prettier": "^9.0.0",
