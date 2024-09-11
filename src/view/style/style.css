@@ -7,3 +7,5 @@
 @import '@milkdown/crepe/theme/common/style.css';
 
 @import './theme.css';
+
+@import './token.css';

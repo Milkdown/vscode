@@ -5,6 +5,7 @@ import { ClientMessage } from './utils/client-message';
 import { vscode } from './utils/api';
 import { useUploader } from './editor-config/uploader';
 import { useListener } from './editor-config/listener';
+import { vscodeDark, vscodeLight } from '@uiw/codemirror-theme-vscode';
 
 export class EditorManager {
     private editor: Editor | null = null;
@@ -12,10 +13,16 @@ export class EditorManager {
 
     create = async () => {
         const state = vscode.getState();
-        console.log(state)
+        console.log(state);
+        console.log(document.body.classList.contains('vscode-dark'));
         const crepe = new Crepe({
             root: '#app',
             defaultValue: state?.text || '',
+            featureConfigs: {
+                [Crepe.Feature.CodeMirror]: {
+                    theme: document.body.classList.contains('vscode-dark') ? vscodeDark : vscodeLight,
+                },
+            },
         });
         const { editor } = crepe;
         useListener(editor, this.message, () => {
@@ -33,7 +40,7 @@ export class EditorManager {
     update = (markdown: string): boolean => {
         if (!this.editor) return false;
         const text = vscode.getState()?.text;
-        console.log(text)
+        console.log(text);
         if (typeof markdown !== 'string' || text === markdown) return false;
 
         return this.editor.action((ctx) => {
