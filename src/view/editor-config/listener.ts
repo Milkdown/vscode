@@ -5,12 +5,12 @@ import { Editor } from '@milkdown/kit/core';
 import { vscode } from '../utils/api';
 import { ClientMessage } from '../utils/client-message';
 
-export const useListener = (editor: Editor, message: ClientMessage, onUpdate: (ctx: Ctx) => void) => {
+export const useListener = (editor: Editor, message: ClientMessage) => {
     editor
         .config((ctx) => {
             ctx.get(listenerCtx)
                 .markdownUpdated((ctx, markdown) => {
-                    // vscode.setState({ text: markdown });
+                    vscode.setState({ text: markdown });
                     // message.update(markdown);
 
                     // onUpdate(ctx);
@@ -23,8 +23,6 @@ export const useListener = (editor: Editor, message: ClientMessage, onUpdate: (c
                 })
                 .mounted(() => {
                     message.ready();
-
-                    onUpdate(ctx);
                 });
         })
         .use(listener);

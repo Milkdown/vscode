@@ -1,8 +1,5 @@
 @import './reset.css';
 @import 'normalize.css';
-@import 'tailwindcss/base.css';
-@import 'tailwindcss/components.css';
-@import 'tailwindcss/utilities.css';
 
 @import '@milkdown/crepe/theme/common/style.css';
 

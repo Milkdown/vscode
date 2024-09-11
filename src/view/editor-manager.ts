@@ -13,8 +13,6 @@ export class EditorManager {
 
     create = async () => {
         const state = vscode.getState();
-        console.log(state);
-        console.log(document.body.classList.contains('vscode-dark'));
         const crepe = new Crepe({
             root: '#app',
             defaultValue: state?.text || '',
@@ -25,9 +23,7 @@ export class EditorManager {
             },
         });
         const { editor } = crepe;
-        useListener(editor, this.message, () => {
-            console.log('onUpdate');
-        });
+        useListener(editor, this.message);
         useUploader(editor, this.message);
 
         await crepe.create();
