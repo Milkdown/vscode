@@ -1,7 +1,7 @@
 /* Copyright 2021, Milkdown by Mirone.*/
-import { upload, uploadConfig } from '@milkdown/plugin-upload';
-import { Node } from '@milkdown/prose/lib/model';
-import { Editor } from '@milkdown/core';
+import { upload, uploadConfig } from '@milkdown/kit/plugin/upload';
+import { Node } from '@milkdown/kit/prose/model';
+import { Editor } from '@milkdown/kit/core';
 import { ClientMessage } from '../utils/client-message';
 
 export const useUploader = (editor: Editor, message: ClientMessage) => {

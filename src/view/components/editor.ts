@@ -4,23 +4,18 @@ import { customElement, state } from 'lit/decorators.js';
 import type { RefOrCallback } from 'lit/directives/ref.js';
 import { ref } from 'lit/directives/ref.js';
 import { ShallowLitElement, useNodeViewFactory, usePluginViewFactory } from '@prosemirror-adapter/lit';
-import { defaultValueCtx, Editor as Milkdown, editorViewCtx, parserCtx, rootCtx } from '@milkdown/core';
-import { codeBlockSchema, imageSchema, listItemSchema } from '@milkdown/preset-commonmark';
-import { $view, outline } from '@milkdown/utils';
+import { defaultValueCtx, Editor as Milkdown, editorViewCtx, parserCtx, rootCtx } from '@milkdown/kit/core';
+import { codeBlockSchema, imageSchema, listItemSchema } from '@milkdown/kit/preset/commonmark';
+import { $view, outline } from '@milkdown/kit/utils';
 import { repeat } from 'lit/directives/repeat.js';
-import { Slice } from '@milkdown/prose/model';
-import { Ctx } from '@milkdown/ctx';
+import { Slice } from '@milkdown/kit/prose/model';
+import { Ctx } from '@milkdown/kit/ctx';
+import { Crepe } from '@milkdown/crepe';
 import { ResourceManager } from '../utils/resource-manager';
 import { ClientMessage } from '../utils/client-message';
 import { vscode } from '../utils/api';
 import { useUploader } from '../editor-config/uploader';
 import { useListener } from '../editor-config/listener';
-import { applyPlugins } from '../editor-config/apply-plugins';
-import { useCursor } from '../editor-config/cursor';
-import { useImageTooltip } from '../image-tooltip';
-import { CodeBlock } from '../code-block';
-import { VsImage } from './vs-image';
-import { ListItem } from './list-item';
 
 @customElement('milkdown-editor')
 export class Editor extends ShallowLitElement {
@@ -31,7 +26,7 @@ export class Editor extends ShallowLitElement {
     pluginViewFactory = usePluginViewFactory(this);
 
     @state()
-    private outline: { text: string; level: number; id: string }[] = [];
+    private accessor outline: { text: string; level: number; id: string }[] = [];
 
     updateMarkdown = (markdown: string): boolean => {
         if (!this.editor) return false;
@@ -107,49 +102,25 @@ export class Editor extends ShallowLitElement {
         });
     };
 
-    private applyLitViews = (editor: Milkdown) => {
-        const nodeViewFactory = this.nodeView;
-        editor
-            .use(
-                $view(imageSchema.node, () =>
-                    nodeViewFactory({
-                        component: VsImage,
-                        as: () => {
-                            const span = document.createElement('span');
-                            span.className = 'image-container';
-                            return span;
-                        },
-                    }),
-                ),
-            )
-            .use(
-                $view(listItemSchema.node, () =>
-                    nodeViewFactory({
-                        component: ListItem,
-                    }),
-                ),
-            )
-            .use($view(codeBlockSchema.node, () => (node, view, getPos) => new CodeBlock(node, view, getPos)));
-    };
-
     private editorRef: RefOrCallback = (element) => {
         if (!element || element.firstChild || !(element instanceof HTMLElement)) return;
 
-        const editor = Milkdown.make();
-        this.editor = editor;
+        const crepe = new Crepe({
+            root: element,
+            defaultValue: vscode.getState()?.text ?? '',
+        })
+        const { editor } = crepe;
 
-        editor.config((ctx) => {
-            ctx.set(rootCtx, element);
-            const state = vscode.getState();
-            ctx.set(defaultValueCtx, state?.text ?? '');
-        });
+        // editor.config((ctx) => {
+        //     ctx.set(rootCtx, element);
+        //     const state = vscode.getState();
+        //     ctx.set(defaultValueCtx, state?.text ?? '');
+        // });
 
-        useCursor(editor);
+        // useCursor(editor);
         useUploader(editor, this.message);
         useListener(editor, this.message, this.onUpdate);
         applyPlugins(editor);
-        this.applyLitViews(editor);
-        useImageTooltip(editor, this.pluginView);
 
         editor.create().then((editor) => {
             this.editor = editor;

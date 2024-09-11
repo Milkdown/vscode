@@ -1,47 +1,26 @@
-/* Copyright 2021, Milkdown by Mirone.*/
-import { html } from 'lit';
-import { ShallowLitElement } from '@prosemirror-adapter/lit';
-import { customElement } from 'lit/decorators.js';
+import { ClientMessage } from './utils/client-message';
+import { EditorManager } from './editor-manager';
 
-import 'katex/dist/katex.min.js';
+function main() {
+    const message = new ClientMessage();
+    const editor = new EditorManager(message);
 
-export { ProsemirrorAdapterProvider } from '@prosemirror-adapter/lit';
-export * from './components/editor';
+    editor.create();
 
-@customElement('milkdown-app')
-export class MilkdownApp extends ShallowLitElement {
-    override render() {
-        return html`
-            <prosemirror-adapter-provider>
-                <milkdown-editor></milkdown-editor>
-            </prosemirror-adapter-provider>
-        `;
-    }
+    window.addEventListener('message', (event) => {
+        const message = event.data;
+        switch (message.type) {
+            case 'update': {
+                const text = message.text;
+                editor.update(text);
+                return;
+            }
+            case 'restart': {
+                editor.flush();
+                return;
+            }
+        }
+    });
 }
 
-declare global {
-    interface HTMLElementTagNameMap {
-        'milkdown-app': MilkdownApp;
-    }
-}
-
-// function main() {
-//     window.addEventListener('message', (event) => {
-//         const message = event.data;
-//         switch (message.type) {
-//             case 'update': {
-//                 const text = message.text;
-//                 editor.update(text);
-//                 return;
-//             }
-//             case 'resource-response': {
-//                 resource.resolve(message.origin, message.result);
-//                 return;
-//             }
-//         }
-//     });
-
-//     editor.create();
-// }
-
-// main();
+main();

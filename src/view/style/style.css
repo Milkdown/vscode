@@ -1,34 +1,8 @@
+@import "./reset.css";
+@import "normalize.css";
 @import "tailwindcss/base.css";
 @import "tailwindcss/components.css";
 @import "tailwindcss/utilities.css";
 
-@import 'katex/dist/katex.css';
-@import '@milkdown/prose/lib/style/prosemirror.css';
-@import 'tippy.js/dist/tippy.css';
-@import 'tippy.js/dist/svg-arrow.css';
+@import "@milkdown/crepe/theme/common/style.css";
 
-@import './override-prose.css';
-@import './font.css';
-@import './tippy.css';
-@import './codemirror.css';
-
-body {
-    padding: 0;
-}
-
-a:focus,
-input:focus,
-select:focus,
-textarea:focus {
-    @apply outline-none;
-}
-
-.editor:focus-visible {
-    @apply outline-none;
-}
-
-.image-container,
-.image-container > node-view-dom-provider,
-.image-container >  node-view-dom-provider > milkdown-vs-image {
-    display: inline-flex;
-}

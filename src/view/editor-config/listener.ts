@@ -1,7 +1,7 @@
 /* Copyright 2021, Milkdown by Mirone.*/
-import { listener, listenerCtx } from '@milkdown/plugin-listener';
-import { Ctx } from '@milkdown/ctx';
-import { Editor } from '@milkdown/core';
+import { listener, listenerCtx } from '@milkdown/kit/plugin/listener';
+import { Ctx } from '@milkdown/kit/ctx';
+import { Editor } from '@milkdown/kit/core';
 import { vscode } from '../utils/api';
 import { ClientMessage } from '../utils/client-message';
 
@@ -10,10 +10,10 @@ export const useListener = (editor: Editor, message: ClientMessage, onUpdate: (c
         .config((ctx) => {
             ctx.get(listenerCtx)
                 .markdownUpdated((ctx, markdown) => {
-                    vscode.setState({ text: markdown });
-                    message.update(markdown);
+                    // vscode.setState({ text: markdown });
+                    // message.update(markdown);
 
-                    onUpdate(ctx);
+                    // onUpdate(ctx);
                 })
                 .focus(() => {
                     message.focus();
