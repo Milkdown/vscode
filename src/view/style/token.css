@@ -17,6 +17,30 @@ body {
 
     --crepe-shadow-1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
     --crepe-shadow-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+
+    --crepe-font-title: var(
+        --markdown-font-family,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe WPC',
+        'Segoe UI',
+        system-ui,
+        'Ubuntu',
+        'Droid Sans',
+        sans-serif
+    );
+    --crepe-font-code: var(
+        --vscode-editor-font-family,
+        'SF Mono',
+        Monaco,
+        Menlo,
+        Consolas,
+        'Ubuntu Mono',
+        'Liberation Mono',
+        'DejaVu Sans Mono',
+        'Courier New',
+        monospace
+    );
 }
 
 .vscode-dark {

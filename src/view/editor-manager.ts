@@ -36,7 +36,7 @@ export class EditorManager {
     update = (markdown: string): boolean => {
         if (!this.editor) return false;
         const text = vscode.getState()?.text;
-        console.log(text);
+        console.log('update');
         if (typeof markdown !== 'string' || text === markdown) return false;
 
         return this.editor.action((ctx) => {
