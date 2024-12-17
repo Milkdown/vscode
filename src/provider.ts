@@ -1,4 +1,3 @@
-/* Copyright 2021, Milkdown by Mirone.*/
 import * as vscode from 'vscode';
 import { join } from 'path';
 import { registerCommand } from './register-command';
@@ -56,7 +55,6 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
         });
 
         webviewPanel.webview.onDidReceiveMessage((e) => {
-            console.log('Receive Event: ', e.type);
             switch (e.type) {
                 case 'client-update':
                     if (webviewPanel.active && webviewPanel.visible) {

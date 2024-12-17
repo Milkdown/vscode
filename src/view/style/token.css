@@ -1,0 +1,49 @@
+body {
+    --crepe-color-background: var(--vscode-editor-background);
+    --crepe-color-on-background: var(--vscode-editor-foreground);
+
+    --crepe-color-surface: var(--vscode-panel-background);
+    --crepe-color-surface-low: var(--vscode-editorGroupHeader-tabsBackground);
+    --crepe-color-on-surface: var(--vscode-editor-foreground);
+
+    --crepe-color-outline: var(--vscode-icon-foreground);
+    --crepe-color-primary: var(--vscode-textLink-foreground);
+    --crepe-color-secondary: var(--vscode-editor-selectionBackground);
+    --crepe-color-error: var(--vscode-editorError-foreground);
+    --crepe-color-inline-area: var(--vscode-textPreformat-background);
+    --crepe-color-inline-code: var(--vscode-textPreformat-foreground);
+    --crepe-color-hover: var(--vscode-toolbar-hoverBackground);
+    --crepe-color-selected: var(--vscode-editor-findMatchBackground);
+
+    --crepe-shadow-1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+    --crepe-shadow-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+
+    --crepe-font-title: var(
+        --markdown-font-family,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe WPC',
+        'Segoe UI',
+        system-ui,
+        'Ubuntu',
+        'Droid Sans',
+        sans-serif
+    );
+    --crepe-font-code: var(
+        --vscode-editor-font-family,
+        'SF Mono',
+        Monaco,
+        Menlo,
+        Consolas,
+        'Ubuntu Mono',
+        'Liberation Mono',
+        'DejaVu Sans Mono',
+        'Courier New',
+        monospace
+    );
+}
+
+.vscode-dark {
+    --crepe-shadow-1: 0px 1px 2px 0px rgba(255, 255, 255, 0.3), 0px 1px 3px 1px rgba(255, 255, 255, 0.15);
+    --crepe-shadow-2: 0px 1px 2px 0px rgba(255, 255, 255, 0.3), 0px 2px 6px 2px rgba(255, 255, 255, 0.15);
+}

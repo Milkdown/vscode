@@ -10,6 +10,7 @@ export class ClientMessage {
 
         return ClientMessage.instance;
     }
+
     update = (content: string) => {
         vscode.postMessage({
             type: 'client-update',
