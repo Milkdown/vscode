@@ -217,8 +217,8 @@
     },
     "devDependencies": {
         "@babel/runtime": "^7.25.6",
-        "@milkdown/crepe": "^7.5.7",
-        "@milkdown/kit": "^7.5.5",
+        "@milkdown/crepe": "^7.5.9",
+        "@milkdown/kit": "^7.5.9",
         "@types/lodash.throttle": "^4.1.9",
         "@types/node": "~20.8.7",
         "@types/vscode": "^1.59.0",

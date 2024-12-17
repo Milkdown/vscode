@@ -23,7 +23,6 @@ export const useListener = (editor: Editor, message: ClientMessage) => {
                         const markdown = getMarkdownFromCtx(ctx);
                         if (prev === markdown) return;
                         prev = markdown;
-                        console.log('update', markdown);
                         vscode.setState({ text: markdown });
                         message.update(markdown);
                     }, 1000),

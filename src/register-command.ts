@@ -1,4 +1,3 @@
-/* Copyright 2021, Milkdown by Mirone.*/
 import * as vscode from 'vscode';
 
 const commands = [
@@ -28,8 +27,9 @@ const commands = [
 
 export function registerCommand(viewType: string): void {
     commands.forEach((command) => {
-        vscode.commands.registerCommand(command, () => {
+        vscode.commands.registerCommand(command, (...args) => {
             // Nothing to do here
+            console.log('command', command, ...args);
         });
     });
 

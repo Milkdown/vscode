@@ -1,5 +1,6 @@
 import { ClientMessage } from './utils/client-message';
 import { EditorManager } from './editor-manager';
+import { ResourceManager } from './utils/resource-manager';
 
 function main() {
     const message = new ClientMessage();
@@ -15,8 +16,8 @@ function main() {
                 editor.update(text);
                 return;
             }
-            case 'restart': {
-                editor.flush();
+            case 'resource-response': {
+                ResourceManager.Instance.resolve(message.origin, message.result);
                 return;
             }
         }
