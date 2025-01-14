@@ -45,8 +45,8 @@ importers:
         specifier: ^9.0.0
         version: 9.2.0
       eslint-config-prettier:
-        specifier: ^9.0.0
-        version: 9.0.0(eslint@9.2.0)
+        specifier: ^10.0.0
+        version: 10.0.1(eslint@9.2.0)
       eslint-plugin-header:
         specifier: ^3.1.1
         version: 3.1.1(eslint@9.2.0)
@@ -55,7 +55,7 @@ importers:
         version: 2.27.5(@typescript-eslint/parser@8.0.0(eslint@9.2.0)(typescript@5.6.2))(eslint@9.2.0)
       eslint-plugin-prettier:
         specifier: ^5.0.0
-        version: 5.0.0(@types/eslint@8.56.6)(eslint-config-prettier@9.0.0(eslint@9.2.0))(eslint@9.2.0)(prettier@3.0.0)
+        version: 5.0.0(@types/eslint@8.56.6)(eslint-config-prettier@10.0.1(eslint@9.2.0))(eslint@9.2.0)(prettier@3.0.0)
       eslint-plugin-simple-import-sort:
         specifier: ^12.0.0
         version: 12.0.0(eslint@9.2.0)
@@ -1344,8 +1344,8 @@ packages:
     resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
     engines: {node: '>=12'}
 
-  eslint-config-prettier@9.0.0:
-    resolution: {integrity: sha512-IcJsTkJae2S35pRsRAwoCE+925rJJStOdkKnLVgtE+tEpqU0EVVM7OqrwxqgptKdX29NUwC82I5pXsGFIgSevw==}
+  eslint-config-prettier@10.0.1:
+    resolution: {integrity: sha512-lZBts941cyJyeaooiKxAtzoPHTN+GbQTJFAIdQbRhA4/8whaAraEh47Whw/ZFfrjNSnlAxqfm9i0XVAEkULjCw==}
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
@@ -4114,7 +4114,7 @@ snapshots:
 
   escape-string-regexp@5.0.0: {}
 
-  eslint-config-prettier@9.0.0(eslint@9.2.0):
+  eslint-config-prettier@10.0.1(eslint@9.2.0):
     dependencies:
       eslint: 9.2.0
 
@@ -4165,7 +4165,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-prettier@5.0.0(@types/eslint@8.56.6)(eslint-config-prettier@9.0.0(eslint@9.2.0))(eslint@9.2.0)(prettier@3.0.0):
+  eslint-plugin-prettier@5.0.0(@types/eslint@8.56.6)(eslint-config-prettier@10.0.1(eslint@9.2.0))(eslint@9.2.0)(prettier@3.0.0):
     dependencies:
       eslint: 9.2.0
       prettier: 3.0.0
@@ -4173,7 +4173,7 @@ snapshots:
       synckit: 0.8.5
     optionalDependencies:
       '@types/eslint': 8.56.6
-      eslint-config-prettier: 9.0.0(eslint@9.2.0)
+      eslint-config-prettier: 10.0.1(eslint@9.2.0)
 
   eslint-plugin-simple-import-sort@12.0.0(eslint@9.2.0):
     dependencies:
