@@ -220,7 +220,7 @@
         "@milkdown/crepe": "^7.5.9",
         "@milkdown/kit": "^7.5.9",
         "@types/lodash.throttle": "^4.1.9",
-        "@types/node": "~22.10.0",
+        "@types/node": "~22.12.0",
         "@types/vscode": "^1.59.0",
         "@typescript-eslint/eslint-plugin": "^8.0.0",
         "@typescript-eslint/parser": "^8.0.0",
