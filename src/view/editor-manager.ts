@@ -55,8 +55,8 @@ export class EditorManager {
                 },
             },
         });
+        useListener(crepe, this.message);
         const { editor } = crepe;
-        useListener(editor, this.message);
         useUploader(editor, this.message);
 
         await crepe.create();
