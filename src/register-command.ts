@@ -27,9 +27,8 @@ const commands = [
 
 export function registerCommand(viewType: string): void {
     commands.forEach((command) => {
-        vscode.commands.registerCommand(command, (...args) => {
+        vscode.commands.registerCommand(command, () => {
             // Nothing to do here
-            console.log('command', command, ...args);
         });
     });
 
@@ -37,7 +36,7 @@ export function registerCommand(viewType: string): void {
         'milkdown.open',
         (uri: vscode.Uri | undefined = vscode.window.activeTextEditor?.document.uri) => {
             if (!uri) {
-                console.error('Cannot get url');
+                // cannot get url
                 return;
             }
 
