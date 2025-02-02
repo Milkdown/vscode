@@ -1,4 +1,5 @@
-import { Editor, editorViewCtx, editorViewOptionsCtx, parserCtx } from '@milkdown/kit/core';
+import type { Editor } from '@milkdown/kit/core';
+import { editorViewCtx, editorViewOptionsCtx, parserCtx } from '@milkdown/kit/core';
 import { Slice } from '@milkdown/kit/prose/model';
 import { Crepe } from '@milkdown/crepe';
 import { ClientMessage } from './utils/client-message';
