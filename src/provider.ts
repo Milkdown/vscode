@@ -36,6 +36,10 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
         webviewPanel.webview.options = { enableScripts: true };
         webviewPanel.webview.html = MilkdownEditorProvider.getHtmlForWebview(this.context, webviewPanel.webview);
 
+        webviewPanel.onDidChangeViewState((e) => {
+            vscode.commands.executeCommand('setContext', 'milkdown.active', e.webviewPanel.active);
+        });
+
         const updateWebview = () => {
             const text = document.getText();
             webviewPanel.webview.postMessage({
@@ -52,6 +56,7 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
 
         webviewPanel.onDidDispose(() => {
             changeDocumentSubscription.dispose();
+            vscode.commands.executeCommand('setContext', 'milkdown.active', false);
         });
 
         webviewPanel.webview.onDidReceiveMessage((e) => {

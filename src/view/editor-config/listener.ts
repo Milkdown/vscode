@@ -32,6 +32,9 @@ export const useListener = (crepe: Crepe, message: ClientMessage) => {
                 const markdown = getMarkdownFromCtx(ctx);
                 prev = markdown;
                 message.ready();
+            })
+            .destroy(() => {
+                message.blur();
             });
     });
 };
