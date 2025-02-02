@@ -3,10 +3,9 @@ import * as vscode from 'vscode';
 import { getNonce } from './get-nonce';
 
 export const getHtmlTemplateForWebView = (webview: vscode.Webview, extensionUri: vscode.Uri) => {
-    const getMediaUri = (fileName: string) =>
-        webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'media', fileName));
+    const getMediaUri = (fileName: string) => webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'dist', fileName));
 
-    const scriptUri = getMediaUri('view.js');
+    const scriptUri = getMediaUri('view.global.js');
     const styleUri = getMediaUri('style.css');
     const nonce = getNonce();
 
