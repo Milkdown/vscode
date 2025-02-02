@@ -4,7 +4,7 @@ out/**
 node_modules/**
 src/**
 .gitignore
-.yarnrc
+.github
 vsc-extension-quickstart.md
 **/tsconfig.json
 **/pnpm-lock.yaml
@@ -14,3 +14,4 @@ vsc-extension-quickstart.md
 **/.oxlintrc.json
 **/*.map
 **/*.ts
+milkdown-vscode.gif

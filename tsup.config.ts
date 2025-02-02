@@ -11,6 +11,7 @@ export default defineConfig([
         format: ['cjs'],
         shims: false,
         dts: false,
+        minify: true,
         platform: 'node',
     },
     {
@@ -23,6 +24,7 @@ export default defineConfig([
         format: ['iife'],
         shims: false,
         dts: false,
+        minify: true,
         platform: 'browser',
     },
 ]);
