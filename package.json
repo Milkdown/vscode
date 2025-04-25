@@ -214,7 +214,7 @@
         "@milkdown/crepe": "^7.6.2",
         "@milkdown/kit": "^7.6.2",
         "@types/lodash.throttle": "^4.1.9",
-        "@types/node": "~22.14.0",
+        "@types/node": "~22.15.0",
         "@types/vscode": "^1.59.0",
         "@uiw/codemirror-theme-vscode": "^4.23.2",
         "@vscode/vsce": "^3.2.2",
