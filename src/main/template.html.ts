@@ -24,9 +24,19 @@ export const getHtmlTemplateForWebView = (webview: vscode.Webview, extensionUri:
 			</head>
 			<body>
                 <div class="milkdown-wrapper">
-                    <div class="mode-toggle" data-mode-toggle>
-                        <button type="button" class="mode-button active" data-mode="edit">Edit</button>
-                        <button type="button" class="mode-button" data-mode="view">View</button>
+                    <div class="mode-toggle">
+                        <div class="mode-toggle__pill" data-mode-toggle>
+                            <button type="button" class="mode-button active" data-mode="edit">Edit</button>
+                            <button type="button" class="mode-button" data-mode="view">View</button>
+                        </div>
+                        <button
+                            type="button"
+                            class="mode-button mode-button--icon"
+                            data-width-toggle
+                            aria-label="Toggle full width"
+                        >
+                            &harr;
+                        </button>
                     </div>
                     <div id="app"></div>
                 </div>

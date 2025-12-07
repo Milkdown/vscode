@@ -26,6 +26,9 @@ body {
 .milkdown-wrapper {
     position: relative;
     height: 100%;
+    width: 100%;
+    padding-top: 64px;
+    box-sizing: border-box;
 }
 
 .mode-toggle {
@@ -33,12 +36,33 @@ body {
     top: 12px;
     right: 12px;
     display: flex;
+    flex-direction: row;
+    align-items: center;
     gap: 0.4rem;
     z-index: 20;
+}
+
+.mode-toggle__pill {
+    display: flex;
+    gap: 0.4rem;
     padding: 0.2rem;
     border-radius: 999px;
     background-color: var(--vscode-editorWidget-background, rgba(255, 255, 255, 0.08));
     border: 1px solid var(--vscode-editorWidget-border, rgba(255, 255, 255, 0.15));
+}
+
+.mode-button--icon {
+    width: 2.2rem;
+    height: 2.2rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    font-size: 1.1rem;
+    border-radius: 999px;
+    border: 1px solid var(--vscode-editorWidget-border, rgba(255, 255, 255, 0.15));
+    background-color: var(--vscode-editorWidget-background, rgba(255, 255, 255, 0.08));
 }
 
 .mode-button {
@@ -74,4 +98,23 @@ body.view-mode .mode-button[data-mode='view'],
 body:not(.view-mode) .mode-button[data-mode='edit'] {
     background-color: var(--vscode-button-background);
     color: var(--vscode-button-foreground);
+}
+
+body.width-mode-default .milkdown-wrapper {
+    width: 1000px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+body.width-mode-default .milkdown {
+    width: 100%;
+}
+
+body.width-mode-default .milkdown .ProseMirror {
+    padding: 16px;
+}
+
+body.width-mode-full .milkdown-wrapper {
+    width: 100%;
+    margin: 0;
 }
