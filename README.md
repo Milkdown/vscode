@@ -1,6 +1,6 @@
 # Milkdown 💖 VSCode
 
-Edit markdown in a WYSIWYG way, powered by [milkdown](https://saul-mirone.github.io/milkdown/#/).
+Edit or view markdown in a WYSIWYG way, powered by [milkdown](https://saul-mirone.github.io/milkdown/#/).
 
 > **Note**  
 > This repository is a fork of [Saul-Mirone/milkdown-vscode](https://github.com/Saul-Mirone/milkdown-vscode).  
@@ -18,9 +18,9 @@ Edit markdown in a WYSIWYG way, powered by [milkdown](https://saul-mirone.github
 
 ### Usage:
 
--   Right click in editor to open in milkdown.
--   Right click in explorer bar and select open in milkdown.
--   Search `Milkdown` in command palette with `Cmd/Ctrl + Shift + P`.
+-   Right click an `.md` file and choose **Open With... → Milkdown Viewer**.
+-   Or open the file and select **More Actions... → Open With...** from the editor tab and choose **Milkdown Viewer**.
+-   (Optional) Set it as the default markdown editor via `workbench.editorAssociations` (see below).
 
 ### Feature List
 
@@ -31,14 +31,15 @@ Edit markdown in a WYSIWYG way, powered by [milkdown](https://saul-mirone.github
 -   Slash commands
 -   Tooltip bar
 -   Math support
+-   Edit/View toggle button for quick read-only mode
 
 ### Set as Default
 
-If you want to use milkdown as your default markdown, you can add this config into your settings:
+If you want to use Milkdown Viewer as your default markdown editor, you can add this config into your settings:
 
 ```json
 "workbench.editorAssociations": {
-    "*.md": "milkdown.editor"
+    "*.md": "milkdownViewer.editor"
 }
 ```
 

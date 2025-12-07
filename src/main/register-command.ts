@@ -1,46 +1,34 @@
 import * as vscode from 'vscode';
 
 const commands = [
-    'extension.milkdown.bold',
-    'extension.milkdown.italic',
-    'extension.milkdown.inline_code',
-    'extension.milkdown.strike_through',
-    'extension.milkdown.text',
-    'extension.milkdown.h1',
-    'extension.milkdown.h2',
-    'extension.milkdown.h3',
-    'extension.milkdown.h4',
-    'extension.milkdown.h5',
-    'extension.milkdown.h6',
-    'extension.milkdown.ordered_list',
-    'extension.milkdown.bullet_list',
-    'extension.milkdown.task_list',
-    'extension.milkdown.code',
-    'extension.milkdown.lift',
-    'extension.milkdown.sink',
-    'extension.milkdown.exit_block',
-    'extension.milkdown.line_break',
-    'extension.milkdown.tab',
-    'extension.milkdown.undo',
-    'extension.milkdown.redo',
+    'extension.milkdownViewer.bold',
+    'extension.milkdownViewer.italic',
+    'extension.milkdownViewer.inline_code',
+    'extension.milkdownViewer.strike_through',
+    'extension.milkdownViewer.text',
+    'extension.milkdownViewer.h1',
+    'extension.milkdownViewer.h2',
+    'extension.milkdownViewer.h3',
+    'extension.milkdownViewer.h4',
+    'extension.milkdownViewer.h5',
+    'extension.milkdownViewer.h6',
+    'extension.milkdownViewer.ordered_list',
+    'extension.milkdownViewer.bullet_list',
+    'extension.milkdownViewer.task_list',
+    'extension.milkdownViewer.code',
+    'extension.milkdownViewer.lift',
+    'extension.milkdownViewer.sink',
+    'extension.milkdownViewer.exit_block',
+    'extension.milkdownViewer.line_break',
+    'extension.milkdownViewer.tab',
+    'extension.milkdownViewer.undo',
+    'extension.milkdownViewer.redo',
 ];
 
-export function registerCommand(viewType: string): void {
+export function registerCommand(): void {
     commands.forEach((command) => {
         vscode.commands.registerCommand(command, () => {
             // Nothing to do here
         });
     });
-
-    vscode.commands.registerCommand(
-        'milkdown.open',
-        (uri: vscode.Uri | undefined = vscode.window.activeTextEditor?.document.uri) => {
-            if (!uri) {
-                // cannot get url
-                return;
-            }
-
-            vscode.commands.executeCommand('vscode.openWith', uri, viewType);
-        },
-    );
 }

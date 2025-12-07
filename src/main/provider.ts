@@ -4,9 +4,9 @@ import { registerCommand } from './register-command';
 import { getHtmlTemplateForWebView } from './template.html';
 
 export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
-    public static readonly viewType = 'milkdown.editor';
+    public static readonly viewType = 'milkdownViewer.editor';
     public static register(context: vscode.ExtensionContext): vscode.Disposable {
-        registerCommand(MilkdownEditorProvider.viewType);
+        registerCommand();
 
         const provider = new MilkdownEditorProvider(context);
         const providerRegistration = vscode.window.registerCustomEditorProvider(
@@ -37,7 +37,7 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
         webviewPanel.webview.html = MilkdownEditorProvider.getHtmlForWebview(this.context, webviewPanel.webview);
 
         webviewPanel.onDidChangeViewState((e) => {
-            vscode.commands.executeCommand('setContext', 'milkdown.active', e.webviewPanel.active);
+            vscode.commands.executeCommand('setContext', 'milkdownViewer.active', e.webviewPanel.active);
         });
 
         const updateWebview = () => {
@@ -56,7 +56,7 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
 
         webviewPanel.onDidDispose(() => {
             changeDocumentSubscription.dispose();
-            vscode.commands.executeCommand('setContext', 'milkdown.active', false);
+            vscode.commands.executeCommand('setContext', 'milkdownViewer.active', false);
         });
 
         webviewPanel.webview.onDidReceiveMessage((e) => {
@@ -69,11 +69,11 @@ export class MilkdownEditorProvider implements vscode.CustomTextEditorProvider {
                     return;
                 case 'client-focus':
                     this.clientIsFocus = true;
-                    vscode.commands.executeCommand('setContext', 'milkdown.active', true);
+                    vscode.commands.executeCommand('setContext', 'milkdownViewer.active', true);
                     return;
                 case 'client-blur':
                     this.clientIsFocus = false;
-                    vscode.commands.executeCommand('setContext', 'milkdown.active', false);
+                    vscode.commands.executeCommand('setContext', 'milkdownViewer.active', false);
                     return;
                 case 'client-ready':
                     updateWebview();

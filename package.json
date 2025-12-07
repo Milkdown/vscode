@@ -1,23 +1,23 @@
 {
-    "name": "milkdown",
+    "name": "milkdown-viewer",
     "private": true,
     "icon": "logo.png",
-    "displayName": "Milkdown",
-    "description": "Edit markdown in a WYSIWYG way, powered by milkdown.",
+    "displayName": "Milkdown Viewer",
+    "description": "Edit or view markdown in a WYSIWYG way, powered by milkdown.",
     "version": "0.0.20",
     "engines": {
         "vscode": "^1.74.0"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Saul-Mirone/milkdown-vscode.git"
+        "url": "https://github.com/yuya296/vscode-markdown.git"
     },
     "categories": [
         "Visualization",
         "Programming Languages"
     ],
     "activationEvents": [
-        "onLanguage:markdown"
+        "onCustomEditor:milkdownViewer.editor"
     ],
     "keywords": [
         "markdown",
@@ -29,8 +29,8 @@
     "contributes": {
         "customEditors": [
             {
-                "viewType": "milkdown.editor",
-                "displayName": "Milkdown Editor",
+                "viewType": "milkdownViewer.editor",
+                "displayName": "Milkdown Viewer",
                 "selector": [
                     {
                         "filenamePattern": "*.md"
@@ -39,160 +39,137 @@
                 "priority": "option"
             }
         ],
-        "menus": {
-            "explorer/context": [
-                {
-                    "when": "resourceLangId == markdown",
-                    "command": "milkdown.open",
-                    "group": "navigation"
-                }
-            ],
-            "editor/context": [
-                {
-                    "when": "resourceLangId == markdown",
-                    "command": "milkdown.open",
-                    "group": "navigation"
-                }
-            ]
-        },
-        "commands": [
-            {
-                "command": "milkdown.open",
-                "title": "Open with Milkdown",
-                "category": "Milkdown"
-            }
-        ],
         "keybindings": [
             {
                 "key": "ctrl+b",
                 "mac": "cmd+b",
-                "command": "extension.milkdown.bold",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.bold",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+i",
                 "mac": "cmd+i",
-                "command": "extension.milkdown.italic",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.italic",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+e",
                 "mac": "cmd+e",
-                "command": "extension.milkdown.inline_code",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.inline_code",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+alt+x",
                 "mac": "cmd+alt+x",
-                "command": "extension.milkdown.strike_through",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.strike_through",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+alt+0",
                 "mac": "cmd+alt+0",
-                "command": "extension.milkdown.text",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.text",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+alt+1",
                 "mac": "cmd+alt+1",
-                "command": "extension.milkdown.h1",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.h1",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+alt+2",
                 "mac": "cmd+alt+2",
-                "command": "extension.milkdown.h2",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.h2",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+alt+3",
                 "mac": "cmd+alt+3",
-                "command": "extension.milkdown.h3",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.h3",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+alt+4",
                 "mac": "cmd+alt+4",
-                "command": "extension.milkdown.h4",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.h4",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+alt+5",
                 "mac": "cmd+alt+5",
-                "command": "extension.milkdown.h5",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.h5",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+alt+6",
                 "mac": "cmd+alt+6",
-                "command": "extension.milkdown.h6",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.h6",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+alt+7",
                 "mac": "cmd+alt+7",
-                "command": "extension.milkdown.ordered_list",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.ordered_list",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+alt+8",
                 "mac": "cmd+alt+8",
-                "command": "extension.milkdown.bullet_list",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.bullet_list",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+alt+9",
                 "mac": "cmd+alt+9",
-                "command": "extension.milkdown.task_list",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.task_list",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+[",
                 "mac": "cmd+[",
-                "command": "extension.milkdown.lift",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.lift",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+]",
                 "mac": "cmd+]",
-                "command": "extension.milkdown.sink",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.sink",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+enter",
                 "mac": "cmd+enter",
-                "command": "extension.milkdown.exit_block",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.exit_block",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "shift+enter",
-                "command": "extension.milkdown.line_break",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.line_break",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+alt+c",
                 "mac": "cmd+alt+c",
-                "command": "extension.milkdown.code",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.code",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "tab",
                 "mac": "tab",
-                "command": "extension.milkdown.tab",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.tab",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+z",
                 "mac": "cmd+z",
-                "command": "extension.milkdown.undo",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.undo",
+                "when": "milkdownViewer.active && !inDebugRepl"
             },
             {
                 "key": "ctrl+shift+z",
                 "mac": "cmd+shift+z",
-                "command": "extension.milkdown.redo",
-                "when": "milkdown.active && !inDebugRepl"
+                "command": "extension.milkdownViewer.redo",
+                "when": "milkdownViewer.active && !inDebugRepl"
             }
         ]
     },

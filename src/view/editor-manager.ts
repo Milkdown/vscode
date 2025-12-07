@@ -9,8 +9,11 @@ import { useListener } from './editor-config/listener';
 import { vscodeDark, vscodeLight } from '@uiw/codemirror-theme-vscode';
 import { ResourceManager } from './utils/resource-manager';
 
+type EditorMode = 'edit' | 'view';
+
 export class EditorManager {
     private editor: Editor | null = null;
+    private mode: EditorMode = 'edit';
     constructor(private message: ClientMessage) {}
 
     create = async () => {
@@ -63,6 +66,7 @@ export class EditorManager {
         await crepe.create();
 
         this.editor = editor;
+        this.applyMode();
 
         return editor;
     };
@@ -85,5 +89,35 @@ export class EditorManager {
             vscode.setState({ text: markdown });
             return true;
         });
+    };
+
+    private applyMode = () => {
+        const editable = this.mode === 'edit';
+        if (this.editor) {
+            this.editor.action((ctx) => {
+                ctx.update(editorViewOptionsCtx, (prev) => ({
+                    ...prev,
+                    editable: () => editable,
+                }));
+                const view = ctx.get(editorViewCtx);
+                view.setProps({
+                    editable: () => editable,
+                });
+                if (!editable) {
+                    view.dom.blur();
+                }
+            });
+        }
+        document.body.classList.toggle('view-mode', !editable);
+    };
+
+    setMode = (mode: EditorMode) => {
+        if (this.mode === mode) return;
+        this.mode = mode;
+        this.applyMode();
+    };
+
+    getMode = (): EditorMode => {
+        return this.mode;
     };
 }

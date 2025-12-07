@@ -23,7 +23,13 @@ export const getHtmlTemplateForWebView = (webview: vscode.Webview, extensionUri:
 				<title>Milkdown</title>
 			</head>
 			<body>
-                <div id="app"></div>
+                <div class="milkdown-wrapper">
+                    <div class="mode-toggle" data-mode-toggle>
+                        <button type="button" class="mode-button active" data-mode="edit">Edit</button>
+                        <button type="button" class="mode-button" data-mode="view">View</button>
+                    </div>
+                    <div id="app"></div>
+                </div>
 
                 <script nonce="${nonce}" src="${scriptUri}"></script>
 			</body>
