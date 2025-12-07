@@ -2,6 +2,10 @@
 
 Edit markdown in a WYSIWYG way, powered by [milkdown](https://saul-mirone.github.io/milkdown/#/).
 
+> **Note**  
+> This repository is a fork of [Saul-Mirone/milkdown-vscode](https://github.com/Saul-Mirone/milkdown-vscode).  
+> We follow the upstream structure/design and add our own tweaks here while keeping attribution and licensing intact.
+
 ## Install
 
 [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=mirone.milkdown)
@@ -45,4 +49,5 @@ If you want to use milkdown as your default markdown, you can add this config in
 
 ## License
 
-[MIT](https://github.com/Saul-Mirone/milkdown-vscode/blob/main/LICENSE)
+Released under the [MIT License](./LICENSE).  
+Original work by [Saul Mirone](https://github.com/Saul-Mirone) is also MIT-licensed; please keep the LICENSE file when redistributing.
