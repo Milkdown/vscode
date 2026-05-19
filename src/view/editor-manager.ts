@@ -19,6 +19,38 @@ export class EditorManager {
             root: '#app',
             defaultValue: state?.text || '',
             featureConfigs: {
+                // ⬇️⬇️⬇️ 【这是你需要新增的核心代码：篡改菜单配置】 ⬇️⬇️⬇️
+                [Crepe.Feature.BlockEdit]: {
+                    // 1. 文本排版组
+                    textGroup: {
+                        label: '文本排版',
+                        text: { label: '普通文本 (text, zhengwen, zw)' },
+                        h1: { label: '一级标题 (h1, biaoti, bt1)' },
+                        h2: { label: '二级标题 (h2, biaoti, bt2)' },
+                        h3: { label: '三级标题 (h3, biaoti, bt3)' },
+                        h4: { label: '四级标题 (h4, biaoti, bt4)' },
+                        h5: { label: '五级标题 (h5, biaoti, bt5)' },
+                        h6: { label: '六级标题 (h6, biaoti, bt6)' },
+                        quote: { label: '引用块 (quote, yinyong, yy)' },
+                        divider: { label: '分割线 (divider, fenge, fgx)' },
+                    },
+                    // 2. 列表组
+                    listGroup: {
+                        label: '列表',
+                        bulletList: { label: '无序列表 (list, wuxu, wx)' },
+                        orderedList: { label: '有序列表 (list, youxu, yx)' },
+                        taskList: { label: '任务列表 (todo, task, rw)' },
+                    },
+                    // 3. 高级组 (只有源码里定义的那4个)
+                    advancedGroup: {
+                        label: '高级',
+                        codeBlock: { label: '代码块 (code, daima, dm)' },
+                        table: { label: '表格 (table, biaoge, bg)' },
+                        image: { label: '图片 (image, tupian, tp)' },
+                        math: { label: '数学公式 (math, shuxue, sx)' },
+                    },
+                },
+                // ⬆️⬆️⬆️ 【新增代码结束】 ⬆️⬆️⬆️
                 [Crepe.Feature.CodeMirror]: {
                     theme: document.body.classList.contains('vscode-dark') ? vscodeDark : vscodeLight,
                 },
